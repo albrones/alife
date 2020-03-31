@@ -4,6 +4,7 @@
         <h3>Sous-titre traduit</h3>
         <!-- TODO: grisser / mettre en secondaire -->
         <div class="infos-pratiques">
+            <h4>Infos pratiques:</h4>
             <div>
                 Temps de préparation:<span><strong>X temps</strong></span>
             </div>
@@ -24,7 +25,7 @@
                 Température de cuisson:<span><strong>X temps</strong></span>
             </div>
             <div>
-                Matériel conseillé:
+                <h4>Matériel conseillé:</h4>
                 <ul>
                     <li>
                         <span><strong>Matériel 1</strong></span>
@@ -64,8 +65,8 @@
                 style="width:500px"
             />
         </div>
-        <!-- TODO: Ajouter photo recette à droite -->
         <div class="ingredients">
+            <h4>Ingrédients:</h4>
             <ul>
                 <li>
                     ingrédient 1: <span><strong>quantité 1</strong></span>
@@ -97,6 +98,7 @@
             </ul>
         </div>
         <div class="instructions">
+            <h4>Instuctions:</h4>
             <p>
                 <span><strong>1)</strong></span>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -120,14 +122,14 @@
             </p>
         </div>
         <div class="astuces-variantes">
+            <h4>ASTUCES:</h4>
             <div>
-                ASTUCES:
                 <router-link to="">Astuce 1</router-link> |
                 <router-link to="">Astuce 2</router-link> |
                 <router-link to="">Astuce 3</router-link>
             </div>
+            <h4>VARIANTES:</h4>
             <div>
-                VARIANTES:
                 <router-link to="">Variante 1</router-link> |
                 <router-link to="">Variante 2</router-link> |
                 <router-link to="">Variante 3</router-link>
@@ -149,11 +151,11 @@ export default {}
 .instructions,
 .astuces-variantes {
     text-align: initial;
-    margin: 0 150px 40px 150px;
+    margin: 0 300px 40px 300px;
 }
 .image {
     position: absolute;
     top: 250px;
-    right: 170px;
+    right: 320px;
 }
 </style>

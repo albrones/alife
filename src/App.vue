@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <div class="logo">
+            <h1>ALIFE</h1>
+        </div>
         <div id="nav">
             <router-link to="/">Home</router-link> |
             <router-link to="/about">About</router-link>

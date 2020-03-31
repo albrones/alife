@@ -1,15 +1,32 @@
 <template>
     <div id="app">
         <div class="logo">
-            <h1>ALIFE</h1>
+            <!-- TODO: Add logo at left -->
+            <h1 v-if="this.$router.currentRoute.path === '/'">
+                ALIFE
+            </h1>
         </div>
         <div id="nav">
             <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
+            <router-link to="/about">About</router-link> |
+            <router-link to="/article">Article</router-link>
         </div>
         <router-view />
     </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        check() {
+            return (
+                // this.$router.currentRoute === this.$route
+                this.$router.currentRoute.path === '/'
+            )
+        },
+    },
+}
+</script>
 
 <style lang="scss">
 #app {

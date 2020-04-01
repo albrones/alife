@@ -7,9 +7,10 @@
             </h1>
         </div>
         <div id="nav">
+            <!-- TODO: Sticky ?  -->
             <router-link to="/">Home</router-link> |
             <router-link to="/about">About</router-link> |
-            <router-link to="/article">Article</router-link>
+            <router-link to="/recette">Recette</router-link>
         </div>
         <router-view />
     </div>

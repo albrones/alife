@@ -4,6 +4,7 @@
         <h3>Sous-titre traduit</h3>
         <!-- TODO: grisser / mettre en secondaire -->
         <div class="infos-pratiques">
+            <!-- TODO: Componenting -->
             <h4>Infos pratiques:</h4>
             <div>
                 Temps de préparation:<span><strong>X temps</strong></span>
@@ -59,6 +60,7 @@
             </div>
         </div>
         <div class="image">
+            <!-- TODO: Blur image foreground ? Crop automatic ? -->
             <img
                 src="https://qph.fs.quoracdn.net/main-qimg-2ace80b379865482e878cb6aca57512d"
                 alt="le gateau"

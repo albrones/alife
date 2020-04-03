@@ -1,12 +1,14 @@
 <template>
-    <div class="instructions">
-        <h4>Instuctions:</h4>
-        <p v-for="(instruction, index) in data" :key="index">
-            <span>
-                <strong>{{ index + 1 }})</strong>
-            </span>
-            {{ instruction }}
-        </p>
+    <div>
+        <h3>Instuctions:</h3>
+        <div class="instructions">
+            <p v-for="(instruction, index) in data" :key="index">
+                <span>
+                    <strong>{{ index + 1 }})</strong>
+                </span>
+                {{ instruction }}
+            </p>
+        </div>
     </div>
 </template>
 
@@ -22,4 +24,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+p {
+    text-align: initial;
+}
+</style>

@@ -1,29 +1,31 @@
 <template>
-    <div class="infos-pratiques">
-        <h4>Infos pratiques:</h4>
-        <div>
-            Temps de préparation:
-            <span>
-                <strong>
-                    {{ data.preparation }}
-                </strong>
-            </span>
-        </div>
-        <div>
-            Temps de repos:
-            <span>
-                <strong>
-                    {{ data.repos }}
-                </strong>
-            </span>
-        </div>
-        <div>
-            Cuisson:
-            <span>
-                <strong>
-                    {{ data.cuisson }}
-                </strong>
-            </span>
+    <div>
+        <h3>Infos pratiques:</h3>
+        <div class="infos-pratiques">
+            <div>
+                Temps de préparation:
+                <span>
+                    <strong>
+                        {{ data.preparation }}
+                    </strong>
+                </span>
+            </div>
+            <div>
+                Temps de repos:
+                <span>
+                    <strong>
+                        {{ data.repos }}
+                    </strong>
+                </span>
+            </div>
+            <div>
+                Cuisson:
+                <span>
+                    <strong>
+                        {{ data.cuisson }}
+                    </strong>
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -40,4 +42,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.infos-pratiques {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+</style>

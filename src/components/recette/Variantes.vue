@@ -1,10 +1,12 @@
 <template>
-    <div class="variantes">
-        <h4>VARIANTES:</h4>
-        <div>
-            <router-link to="">Variante 1</router-link> |
-            <router-link to="">Variante 2</router-link> |
-            <router-link to="">Variante 3</router-link>
+    <div>
+        <h3>Variantes:</h3>
+        <div class="variantes">
+            <div>
+                <router-link to="">Variante 1</router-link> |
+                <router-link to="">Variante 2</router-link> |
+                <router-link to="">Variante 3</router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -15,4 +17,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.variantes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+</style>

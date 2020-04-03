@@ -1,15 +1,15 @@
 <template>
-    <div class="ingredients">
-        <div>
-            <h4>Ingrédients:</h4>
+    <div>
+        <h3>Ingrédients:</h3>
+        <div class="ingredients">
             <ul>
                 <li v-for="(ingredient, index) in data.principaux" :key="index">
                     <span>{{ ingredient }}</span>
                 </li>
             </ul>
         </div>
-        <div v-if="data.secondaire">
-            <h4>{{ data.secondaire.title }}</h4>
+        <h3>{{ data.secondaire.title }}</h3>
+        <div class="ingredients" v-if="data.secondaire">
             <ul>
                 <li
                     v-for="(ingredient, index) in data.secondaire.data"
@@ -34,4 +34,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+li {
+    text-align: initial;
+}
+li > span {
+    margin-left: 20px;
+}
+</style>

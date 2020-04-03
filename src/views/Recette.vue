@@ -88,30 +88,13 @@ export default {
 .content-recette {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    /* align-content: center; */
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
 }
-.title {
-    /* align-self: flex-start; */
-}
-.infos-pratiques {
-    align-self: flex-start;
-}
-.image {
-    /* align-self: flex-start; */
-}
-.materiel-conseille {
-    align-self: flex-start;
-}
-.ingredients {
-    align-self: flex-start;
-}
-.instructions {
-    align-self: flex-start;
-}
-.astuces-variantes {
-    /* align-self: flex-start; */
+@media only screen and (max-width: 1024px) {
+    /* For mobile phones: */
+    .content-recette {
+        width: 90%;
+    }
 }
 </style>

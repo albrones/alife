@@ -1,8 +1,10 @@
 <template>
-    <div class="astuces">
-        <h4>ASTUCES:</h4>
-        <div v-for="(astuce, index) in data" :key="index">
-            {{ astuce }}
+    <div>
+        <h3>Astuces:</h3>
+        <div class="astuces">
+            <div v-for="(astuce, index) in data" :key="index">
+                {{ astuce }}
+            </div>
         </div>
     </div>
 </template>
@@ -19,4 +21,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.astuces {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+</style>

@@ -8,17 +8,7 @@
             Temps de repos:<span><strong>X temps</strong></span>
         </div>
         <div>
-            Temps de cuisson:<span><strong>X temps</strong></span>
-        </div>
-        <div>
-            Difficulté:<span><strong>X X X . .</strong></span>
-        </div>
-        <!-- TODO: Difficultés en Etoile (svg) -->
-        <div>
-            Température de repos:<span><strong>X temps</strong></span>
-        </div>
-        <div>
-            Température de cuisson:<span><strong>X temps</strong></span>
+            Cuisson:<span><strong>X temps à X°C</strong></span>
         </div>
     </div>
 </template>

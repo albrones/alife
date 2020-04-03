@@ -12,7 +12,7 @@ export default {
     name: 'Astuces',
     props: {
         data: {
-            type: Object,
+            type: Array,
             required: true,
         },
     },

@@ -4,7 +4,6 @@
         <img
             src="https://qph.fs.quoracdn.net/main-qimg-2ace80b379865482e878cb6aca57512d"
             alt="le gateau"
-            style="width:500px"
         />
     </div>
 </template>
@@ -17,8 +16,11 @@ export default {
 
 <style scoped>
 .image {
-    position: absolute;
+    /* position: absolute;
     top: 250px;
-    right: 320px;
+    right: 320px; */
+}
+img {
+    /* width: 250px;s */
 }
 </style>

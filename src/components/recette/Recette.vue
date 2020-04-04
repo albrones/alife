@@ -41,6 +41,7 @@ export default {
         Variantes,
     },
     data() {
+        /* TODO: get & dispatch data dynamicaly using $route.params.id , test integrating one more recipe*/
         return {
             infosPratiques: {
                 preparation: 'xxx',

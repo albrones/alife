@@ -13,14 +13,6 @@
             <router-link to="/recettes">Recettes</router-link>
         </div>
         <router-view />
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="/__/firebase/7.13.2/firebase-app.js"></script>
-
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-        <!-- Initialize Firebase -->
-        <script src="/__/firebase/init.js"></script>
     </div>
 </template>
 
@@ -32,6 +24,18 @@ export default {
                 // this.$router.currentRoute === this.$route
                 this.$router.currentRoute.path === '/'
             )
+        },
+        mounted() {
+            const firebaseApp = document.createElement('script')
+            firebaseApp.setAttribute(
+                'src',
+                '/__/firebase/7.13.2/firebase-app.js"'
+            )
+            const firebase = document.createElement('script')
+            firebase.setAttribute('src', '/__/firebase/init.js')
+            document.head.appendChild(firebaseApp)
+            document.head.appendChild(firebase)
+            return true
         },
     },
 }

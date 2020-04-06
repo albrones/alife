@@ -68,10 +68,10 @@ export default {
             },
             instructions: [
                 'Couper les carottes en rondelles et le mixer avec les oeufs, le sucre et l’huile.',
-                'Dans une terrine, mélanger la marie, la levure et le sel. ',
-                'Ajouter le mélange aux carottes dans la terrine et tout mélanger. ',
+                'Dans une terrine, mélanger la marie, la levure et le sel.',
+                'Ajouter le mélange aux carottes dans la terrine et tout mélanger.',
                 'Beurrer un moule rectangulaire, le saupoudrer de farine et y verser la pâte.',
-                'Faire cuire à 200°C en surveillant. ',
+                'Faire cuire à 200°C en surveillant.',
                 'Une fois le gâteau cuit (la page ne doit pas coller à pointe du couteau), préparer la couverture de chocolat.',
                 'Mélanger dans une casserole, à feu moyen, le chocolat en poudre et le lait, jusqu’à ce que le mélange épaississe.',
                 'Verser la couverture de chocolat sur le gâteau et laisser refroidir.',

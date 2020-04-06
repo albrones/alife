@@ -14,12 +14,20 @@
 </template>
 
 <script>
+import database from '@/firebase/db'
 export default {
     name: 'Recettes',
     data() {
         return {
             recettes: [{ name: 'Bolo de censura do Brasil', id: 'test' }],
         }
+    },
+    mounted() {
+        const test = database
+            .collection('recettes')
+            .doc('EDprHSymrmPEnc6Tom5E')
+            .get()
+            .then(a => console.log(a.data()))
     },
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Sommaire</h1>
-        <div class="recettes">
+        <div class="recettes" v-if="isLoaded">
             <router-link
                 v-for="(recette, index) in recettes"
                 :key="index"
@@ -19,25 +19,28 @@ export default {
     name: 'Recettes',
     data() {
         return {
+            isLoaded: false,
             recettes: [],
         }
     },
     mounted() {
-        this.getRecettes()
+        this.getSummary()
+        this.isLoaded = true
     },
     methods: {
-        async getRecettes() {
+        async getSummary() {
+            // TODO: Export db usage in store ???
             await database
                 .collection('recettes')
                 .get()
-                .then(list =>
-                    list.forEach(recette => {
+                .then(list => {
+                    list.forEach(recette =>
                         this.recettes.push({
                             title: recette.get('title'),
                             id: recette.id,
                         })
-                    })
-                )
+                    )
+                })
         },
     },
 }

@@ -7,7 +7,7 @@
                 :key="index"
                 :to="'/recettes/' + recette.id"
             >
-                {{ recette.name }}
+                {{ recette.title }}
             </router-link>
         </div>
     </div>
@@ -19,15 +19,26 @@ export default {
     name: 'Recettes',
     data() {
         return {
-            recettes: [{ name: 'Bolo de censura do Brasil', id: 'test' }],
+            recettes: [],
         }
     },
     mounted() {
-        const test = database
-            .collection('recettes')
-            .doc('EDprHSymrmPEnc6Tom5E')
-            .get()
-            .then(a => console.log(a.data()))
+        this.getRecettes()
+    },
+    methods: {
+        async getRecettes() {
+            await database
+                .collection('recettes')
+                .get()
+                .then(list =>
+                    list.forEach(recette => {
+                        this.recettes.push({
+                            title: recette.get('title'),
+                            id: recette.id,
+                        })
+                    })
+                )
+        },
     },
 }
 </script>

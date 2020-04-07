@@ -1,5 +1,5 @@
 <template>
-    <div class="image">
+    <div class="image" v-if="data.length > 0">
         <!-- TODO: Blur image foreground ? Crop automatic ? -->
         <!-- TODO: Add default image or make optional -->
         <img
@@ -12,6 +12,12 @@
 <script>
 export default {
     name: 'ImageRecette',
+    props: {
+        data: {
+            type: Array, //TODO: fix model
+            required: true,
+        },
+    },
 }
 </script>
 

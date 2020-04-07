@@ -1,25 +1,12 @@
 <template>
-    <div>
+    <div v-if="data.length > 0">
         <h3>Matériel conseillé:</h3>
         <div class="materiel-conseille">
             <ul>
-                <li>
-                    <span><strong>Matériel 1</strong></span>
-                </li>
-                <li>
-                    <span><strong>Matériel 2</strong></span>
-                </li>
-                <li>
-                    <span><strong>Matériel 3</strong></span>
-                </li>
-                <li>
-                    <span><strong>Matériel 4</strong></span>
-                </li>
-                <li>
-                    <span><strong>Matériel 5</strong></span>
-                </li>
-                <li>
-                    <span><strong>Matériel 6</strong></span>
+                <li v-for="(materiel, index) in data" :key="index">
+                    <span
+                        ><strong>{{ materiel }}</strong></span
+                    >
                 </li>
             </ul>
         </div>
@@ -29,6 +16,12 @@
 <script>
 export default {
     name: 'MaterielConseille',
+    props: {
+        data: {
+            type: Array,
+            required: true,
+        },
+    },
 }
 </script>
 

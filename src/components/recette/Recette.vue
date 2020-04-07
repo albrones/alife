@@ -1,19 +1,20 @@
 <template>
     <div class="content-recette" v-if="isLoaded">
         <div class="title">
-            <h1>Bolo de censura do Brasil</h1>
+            <h1>{{ recette.title }}</h1>
             <h3>
-                Le gâteau aux carottes du Brésil
+                {{ recette.subtitle }}
                 <!-- TODO: grisser / mettre en secondaire -->
             </h3>
         </div>
-        <ImageRecette />
+        <!-- TODO: make all part optionnal rendered -->
+        <ImageRecette :data="recette.images" />
         <InfosPratiques :data="recette.infosPratiques" />
-        <MaterielConseille />
+        <MaterielConseille :data="recette.materielConseille" />
         <Ingredients :data="recette.ingredients" />
         <Instructions :data="recette.instructions" />
         <Astuces :data="recette.astuces" />
-        <Variantes />
+        <Variantes :data="recette.variantes" />
         <!-- TODO:
             Autres Photos (galerie)
          -->
@@ -44,19 +45,40 @@ export default {
     data() {
         return {
             isLoaded: false,
-            recette: {},
+            recette: {
+                title: '',
+                subtitle: '',
+                images: [{ title: '' }],
+                infosPratiques: { preparation: '', repos: '', cuisson: '' },
+                materielConseille: [],
+                ingredients: {
+                    principaux: [],
+                    secondaire: {
+                        title: '',
+                        data: [],
+                    },
+                },
+                instructions: [],
+                astuces: [],
+                variantes: [],
+            },
         }
     },
-    beforeMount() {
-        this.recette = this.getRecetteById()
+    mounted() {
+        /* this.recette =  */ this.getRecetteById()
         this.isLoaded = true
     },
     methods: {
         async getRecetteById() {
+            const path = this.$route.params.id
+
             await database
                 .collection('recettes')
-                .get(this.$route.params.id)
-                .then(doc => doc.data())
+                .doc(path)
+                .get()
+                .then(doc => {
+                    this.recette = doc.data()
+                })
         },
     },
 }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="data.length > 0">
         <h3>Instuctions:</h3>
         <div class="instructions">
             <p v-for="(instruction, index) in data" :key="index">

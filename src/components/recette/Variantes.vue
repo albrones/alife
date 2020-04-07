@@ -1,11 +1,15 @@
 <template>
-    <div>
+    <div v-if="data.length > 0">
         <h3>Variantes:</h3>
         <div class="variantes">
             <div>
-                <router-link to="">Variante 1</router-link> |
-                <router-link to="">Variante 2</router-link> |
-                <router-link to="">Variante 3</router-link>
+                <router-link
+                    v-for="(variante, index) in data"
+                    :key="index"
+                    :to="variante.path"
+                    >{{ variante.title }}</router-link
+                >
+                |
             </div>
         </div>
     </div>
@@ -14,6 +18,12 @@
 <script>
 export default {
     name: 'Variantes',
+    props: {
+        data: {
+            type: Array,
+            required: true,
+        },
+    },
 }
 </script>
 

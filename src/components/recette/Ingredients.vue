@@ -8,16 +8,18 @@
                 </li>
             </ul>
         </div>
-        <h3>{{ data.secondaire.title }}</h3>
-        <div class="ingredients" v-if="data.secondaire">
-            <ul>
-                <li
-                    v-for="(ingredient, index) in data.secondaire.data"
-                    :key="index"
-                >
-                    <span>{{ ingredient }}</span>
-                </li>
-            </ul>
+        <div v-if="hasSecondIngredientsListe">
+            <h3>{{ data.secondaires.title }}</h3>
+            <div class="ingredients">
+                <ul>
+                    <li
+                        v-for="(ingredient, index) in data.secondaires.data"
+                        :key="index"
+                    >
+                        <span>{{ ingredient }}</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -29,6 +31,11 @@ export default {
         data: {
             type: Object,
             required: true,
+        },
+    },
+    computed: {
+        hasSecondIngredientsListe() {
+            return Object.keys(this.data.secondaires).length > 0
         },
     },
 }

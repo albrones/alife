@@ -48,12 +48,12 @@ export default {
             recette: {
                 title: '',
                 subtitle: '',
-                images: [{ title: '' }],
+                images: [],
                 infosPratiques: { preparation: '', repos: '', cuisson: '' },
                 materielConseille: [],
                 ingredients: {
                     principaux: [],
-                    secondaire: {
+                    secondaires: {
                         title: '',
                         data: [],
                     },
@@ -65,7 +65,7 @@ export default {
         }
     },
     mounted() {
-        /* this.recette =  */ this.getRecetteById()
+        this.getRecetteById()
         this.isLoaded = true
     },
     methods: {
@@ -77,6 +77,7 @@ export default {
                 .doc(path)
                 .get()
                 .then(doc => {
+                    console.log(doc.data())
                     this.recette = doc.data()
                 })
         },

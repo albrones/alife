@@ -11,7 +11,7 @@
             </router-link>
             <br />
         </div>
-        <!-- <button @click="addRecette(dataRecette)">Click add</button> -->
+        <router-link tag="button" to="add" append>+</router-link>
     </div>
 </template>
 
@@ -76,31 +76,6 @@ export default {
                         })
                     )
                 })
-        },
-
-        async addRecette(recette) {
-            const {
-                title,
-                subtitle,
-                images,
-                infosPratiques,
-                materielConseille,
-                ingredients,
-                instructions,
-                astuces,
-                variantes,
-            } = recette
-            await database.collection('recettes').add({
-                title,
-                subtitle,
-                images,
-                infosPratiques,
-                materielConseille,
-                ingredients,
-                instructions,
-                astuces,
-                variantes,
-            })
         },
     },
 }

@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Recettes from '../views/Recettes.vue'
 import About from '../views/About.vue'
 import Recette from '../components/recette/Recette.vue'
+import RecetteForm from '../components/recette/RecetteForm.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
         path: '/recettes',
         name: 'Recettes',
         component: Recettes,
+    },
+    {
+        path: '/recettes/add',
+        name: 'Ajout Recette',
+        component: RecetteForm,
     },
     {
         path: '/recettes/:id',

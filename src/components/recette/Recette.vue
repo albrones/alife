@@ -77,7 +77,6 @@ export default {
                 .doc(path)
                 .get()
                 .then(doc => {
-                    console.log(doc.data())
                     this.recette = doc.data()
                 })
         },

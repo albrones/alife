@@ -86,46 +86,12 @@
                     :value="recette.astuces"
                     optionnal
                 />
-                <div>
-                    <h3>Variantes <span>(optionnel)</span></h3>
-                    <div v-if="recette.variantes.length > 0">
-                        <div>
-                            <h4>
-                                <label for="variantesTitle">
-                                    Titre
-                                </label>
-                            </h4>
-                            <input
-                                v-for="(variante, index) in recette.variantes"
-                                :key="index"
-                                v-model="recette.variantes[index].title"
-                                name="variantesTitle"
-                                id="variantesTitle"
-                            />
-                            <!-- TODO: Si au final lien cliquable need split in 2 inputs: title & link -->
-                        </div>
-                        <div>
-                            <h4>
-                                <label for="variantesPath">
-                                    Lien
-                                </label>
-                            </h4>
-                            <input
-                                v-for="(variante, index) in recette.variantes"
-                                :key="index"
-                                v-model="recette.variantes[index].path"
-                                name="variantesPath"
-                                id="variantesPath"
-                            />
-                            <!-- TODO: Si au final lien cliquable need split in 2 inputs: title & link -->
-                        </div>
-                    </div>
-                    <button
-                        @click="addVariantes(recette.variantes[indexVariantes])"
-                    >
-                        Ajouter
-                    </button>
-                </div>
+                <InputLinkMultiple
+                    name="variantes"
+                    label="Variantes"
+                    :value="recette.variantes"
+                    optionnal
+                />
                 <button @click="addRecette()">Valider</button>
             </div>
         </div>
@@ -186,9 +152,6 @@ export default {
             //     .error(function(data, status, request) {
             //         //handling
             //     })
-        },
-        addVariantes() {
-            this.recette.variantes.push({ title: '', path: '' })
         },
         addSecondPart() {
             this.hasSecondPart = true

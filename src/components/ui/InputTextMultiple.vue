@@ -2,17 +2,25 @@
     <div>
         <h4>
             <label :for="name">
-                {{ label }}
-                <span v-if="optionnal"> (optionnel)</span>
+                {{ label }} <span v-if="optionnal">(optionnel)</span>
             </label>
         </h4>
-        <input v-model="value" :name="name" :id="name" />
+        <input
+            v-for="(item, index) in value"
+            :key="index"
+            v-model="value[index]"
+            :name="name"
+            :id="name"
+        />
+        <button @click="addItem(value)">
+            Ajouter
+        </button>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'InputText',
+    name: 'InputTextMultiple',
     props: {
         name: {
             type: String,
@@ -23,12 +31,17 @@ export default {
             required: true,
         },
         value: {
-            type: String,
+            type: Array,
             required: true,
         },
         optionnal: {
             type: Boolean,
             default: false,
+        },
+    },
+    methods: {
+        addItem(array) {
+            array.push('')
         },
     },
 }

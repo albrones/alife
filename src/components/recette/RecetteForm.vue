@@ -46,41 +46,19 @@
                         optionnal
                     />
                 </div>
-                <div>
-                    <h4>
-                        <label for="materielConseille">
-                            Matériel conseillé <span>(optionnel)</span>
-                        </label>
-                    </h4>
-                    <input
-                        v-for="(materiel, index) in recette.materielConseille"
-                        :key="index"
-                        v-model="recette.materielConseille[index]"
-                        name="materielConseille"
-                        id="materielConseille"
-                    />
-                    <button @click="addItem(recette.materielConseille)">
-                        Ajouter
-                    </button>
-                </div>
+                <InputTextMultiple
+                    name="materielConseille"
+                    label="Matériel conseillé"
+                    :value="recette.materielConseille"
+                    optionnal
+                />
                 <div>
                     <h3>Ingrédients</h3>
-                    <div>
-                        <h4><label for="principaux">Principaux</label></h4>
-                        <input
-                            v-for="(ingredient, index) in recette.ingredients
-                                .principaux"
-                            :key="index"
-                            v-model="recette.ingredients.principaux[index]"
-                            name="principaux"
-                            id="principaux"
-                        />
-                        <button
-                            @click="addItem(recette.ingredients.principaux)"
-                        >
-                            Ajouter
-                        </button>
-                    </div>
+                    <InputTextMultiple
+                        name="principaux"
+                        label="Principaux"
+                        :value="recette.ingredients.principaux"
+                    />
                     <button v-if="!hasSecondPart" @click="addSecondPart()">
                         Ajouter deuxième partie
                     </button>
@@ -90,65 +68,24 @@
                             label="Titre deuxième partie"
                             :value="recette.ingredients.secondaires.title"
                         />
-
-                        <div>
-                            <h4>
-                                <label for="secondaires">
-                                    Secondaires
-                                </label>
-                            </h4>
-                            <input
-                                v-for="(ingredient, index) in recette
-                                    .ingredients.secondaires.data"
-                                :key="index"
-                                v-model="
-                                    recette.ingredients.secondaires.data[index]
-                                "
-                                name="secondaires"
-                                id="secondaires"
-                            />
-                            <button
-                                @click="
-                                    addItem(
-                                        recette.ingredients.secondaires.data
-                                    )
-                                "
-                            >
-                                Ajouter
-                            </button>
-                        </div>
+                        <InputTextMultiple
+                            name="secondaires"
+                            label="Secondaires"
+                            :value="recette.ingredients.secondaires.data"
+                        />
                     </div>
                 </div>
-                <div>
-                    <h3><label for="instructions">Instructions</label></h3>
-                    <input
-                        v-for="(instruction, index) in recette.instructions"
-                        :key="index"
-                        v-model="recette.instructions[index]"
-                        name="instructions"
-                        id="instructions"
-                    />
-                    <button @click="addItem(recette.instructions)">
-                        Ajouter
-                    </button>
-                </div>
-                <div>
-                    <h3>
-                        <label for="astuces">
-                            Astuces <span>(optionnel)</span>
-                        </label>
-                    </h3>
-                    <input
-                        v-for="(astuce, index) in recette.astuces"
-                        :key="index"
-                        v-model="recette.astuces[index]"
-                        name="astuces"
-                        id="astuces"
-                    />
-                    <button @click="addItem(recette.astuces)">
-                        Ajouter
-                    </button>
-                </div>
+                <InputTextMultiple
+                    name="instructions"
+                    label="Instructions"
+                    :value="recette.instructions"
+                />
+                <InputTextMultiple
+                    name="astuces"
+                    label="Astuces"
+                    :value="recette.astuces"
+                    optionnal
+                />
                 <div>
                     <h3>Variantes <span>(optionnel)</span></h3>
                     <div v-if="recette.variantes.length > 0">
@@ -198,11 +135,13 @@
 <script>
 import database from '@/firebase/db'
 import InputText from '@/components/ui/InputText'
+import InputTextMultiple from '@/components/ui/InputTextMultiple'
 
 export default {
     name: 'RecetteForm',
     components: {
         InputText,
+        InputTextMultiple,
     },
     data() {
         return {
@@ -247,9 +186,6 @@ export default {
             //     .error(function(data, status, request) {
             //         //handling
             //     })
-        },
-        addItem(array) {
-            array.push('')
         },
         addVariantes() {
             this.recette.variantes.push({ title: '', path: '' })

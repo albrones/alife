@@ -6,20 +6,13 @@
                 <h1>Ajouter une recette</h1>
             </div>
             <div class="recette-form">
-                <div>
-                    <h3><label for="title">Titre</label></h3>
-                    <input v-model="recette.title" name="title" id="title" />
-                </div>
-                <div>
-                    <label for="subtitle">
-                        <h3>Soustitre <span>(optionnel)</span></h3>
-                    </label>
-                    <input
-                        v-model="recette.subtitle"
-                        name="subtitle"
-                        id="subtitle"
-                    />
-                </div>
+                <InputText name="title" label="Titre" :value="recette.title" />
+                <InputText
+                    name="subtitle"
+                    label="Soustitre"
+                    :value="recette.subtitle"
+                    optionnal
+                />
                 <div v-if="false">
                     <label for="image">
                         <h3>Image principal <span>(optionnel)</span></h3>
@@ -35,42 +28,23 @@
                 </div>
                 <div>
                     <h3>Infos Pratique</h3>
-                    <div>
-                        <h4>
-                            <label for="preparation"
-                                >Temps de préparation</label
-                            >
-                        </h4>
-                        <input
-                            v-model="recette.infosPratiques.preparation"
-                            name="preparation"
-                            id="preparation"
-                        />
-                    </div>
-                    <div>
-                        <h4>
-                            <label for="repos">
-                                Temps de repos <span>(optionnel)</span>
-                            </label>
-                        </h4>
-                        <input
-                            v-model="recette.infosPratiques.repos"
-                            name="repos"
-                            id="repos"
-                        />
-                    </div>
-                    <div>
-                        <h4>
-                            <label for="cuisson">
-                                Temps de cuisson <span>(optionnel)</span>
-                            </label>
-                        </h4>
-                        <input
-                            v-model="recette.infosPratiques.cuisson"
-                            name="cuisson"
-                            id="cuisson"
-                        />
-                    </div>
+                    <InputText
+                        name="preparation"
+                        label="Temps de préparation"
+                        :value="recette.infosPratiques.preparation"
+                    />
+                    <InputText
+                        name="repos"
+                        label="Temps de repos"
+                        :value="recette.infosPratiques.repos"
+                        optionnal
+                    />
+                    <InputText
+                        name="cuisson"
+                        label="Temps de cuisson"
+                        :value="recette.infosPratiques.cuisson"
+                        optionnal
+                    />
                 </div>
                 <div>
                     <h4>
@@ -111,40 +85,38 @@
                         Ajouter deuxième partie
                     </button>
                     <div v-if="hasSecondPart">
-                        <h4>
-                            <label for="title2">
-                                Titre deuxième partie
-                            </label>
-                        </h4>
-                        <input
-                            v-model="recette.ingredients.secondaires.title"
+                        <InputText
                             name="title2"
-                            id="title2"
+                            label="Titre deuxième partie"
+                            :value="recette.ingredients.secondaires.title"
                         />
-                    </div>
-                    <div>
-                        <h4>
-                            <label for="secondaires">
-                                Secondaires
-                            </label>
-                        </h4>
-                        <input
-                            v-for="(ingredient, index) in recette.ingredients
-                                .secondaires.data"
-                            :key="index"
-                            v-model="
-                                recette.ingredients.secondaires.data[index]
-                            "
-                            name="secondaires"
-                            id="secondaires"
-                        />
-                        <button
-                            @click="
-                                addItem(recette.ingredients.secondaires.data)
-                            "
-                        >
-                            Ajouter
-                        </button>
+
+                        <div>
+                            <h4>
+                                <label for="secondaires">
+                                    Secondaires
+                                </label>
+                            </h4>
+                            <input
+                                v-for="(ingredient, index) in recette
+                                    .ingredients.secondaires.data"
+                                :key="index"
+                                v-model="
+                                    recette.ingredients.secondaires.data[index]
+                                "
+                                name="secondaires"
+                                id="secondaires"
+                            />
+                            <button
+                                @click="
+                                    addItem(
+                                        recette.ingredients.secondaires.data
+                                    )
+                                "
+                            >
+                                Ajouter
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -225,10 +197,13 @@
 
 <script>
 import database from '@/firebase/db'
+import InputText from '@/components/ui/InputText'
 
 export default {
     name: 'RecetteForm',
-    components: {},
+    components: {
+        InputText,
+    },
     data() {
         return {
             indexVariantes: 0,

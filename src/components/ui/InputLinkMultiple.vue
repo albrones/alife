@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>{{ label }} <span v-if="optionnal">(optionnel)</span></h3>
+        <h3><slot /> <span v-if="optionnal">(optionnel)</span></h3>
         <div v-if="value.length > 0">
             <div>
                 <h4>
@@ -42,10 +42,6 @@ export default {
     name: 'InputTextMultipleDouble',
     props: {
         name: {
-            type: String,
-            required: true,
-        },
-        label: {
             type: String,
             required: true,
         },

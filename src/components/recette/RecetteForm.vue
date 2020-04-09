@@ -6,13 +6,10 @@
                 <h1>Ajouter une recette</h1>
             </div>
             <div class="recette-form">
-                <InputText name="title" label="Titre" :value="recette.title" />
-                <InputText
-                    name="subtitle"
-                    label="Soustitre"
-                    :value="recette.subtitle"
-                    optionnal
-                />
+                <InputText name="title" :value="recette.title">Titre</InputText>
+                <InputText name="subtitle" :value="recette.subtitle" optionnal>
+                    Soustitre
+                </InputText>
                 <div v-if="false">
                     <label for="image">
                         <h3>Image principal <span>(optionnel)</span></h3>
@@ -30,68 +27,79 @@
                     <h3>Infos Pratique</h3>
                     <InputText
                         name="preparation"
-                        label="Temps de préparation"
                         :value="recette.infosPratiques.preparation"
-                    />
+                    >
+                        Temps de préparation
+                    </InputText>
                     <InputText
                         name="repos"
-                        label="Temps de repos"
                         :value="recette.infosPratiques.repos"
                         optionnal
-                    />
+                    >
+                        Temps de repos
+                    </InputText>
                     <InputText
                         name="cuisson"
-                        label="Temps de cuisson"
                         :value="recette.infosPratiques.cuisson"
                         optionnal
-                    />
+                    >
+                        Temps de cuisson
+                    </InputText>
                 </div>
                 <InputTextMultiple
                     name="materielConseille"
-                    label="Matériel conseillé"
                     :value="recette.materielConseille"
                     optionnal
-                />
+                >
+                    Matériel conseillé
+                </InputTextMultiple>
                 <div>
                     <h3>Ingrédients</h3>
                     <InputTextMultiple
                         name="principaux"
-                        label="Principaux"
                         :value="recette.ingredients.principaux"
-                    />
-                    <button v-if="!hasSecondPart" @click="addSecondPart()">
+                    >
+                        Principaux
+                    </InputTextMultiple>
+
+                    <Button v-if="!hasSecondPart" :action="addSecondPart()">
                         Ajouter deuxième partie
-                    </button>
+                    </Button>
                     <div v-if="hasSecondPart">
                         <InputText
                             name="title2"
-                            label="Titre deuxième partie"
                             :value="recette.ingredients.secondaires.title"
-                        />
+                        >
+                            Titre deuxième partie
+                        </InputText>
                         <InputTextMultiple
                             name="secondaires"
-                            label="Secondaires"
                             :value="recette.ingredients.secondaires.data"
-                        />
+                        >
+                            Secondaires
+                        </InputTextMultiple>
                     </div>
                 </div>
                 <InputTextMultiple
                     name="instructions"
-                    label="Instructions"
                     :value="recette.instructions"
-                />
+                >
+                    Instructions
+                </InputTextMultiple>
                 <InputTextMultiple
                     name="astuces"
-                    label="Astuces"
                     :value="recette.astuces"
                     optionnal
-                />
+                >
+                    Astuces
+                </InputTextMultiple>
                 <InputLinkMultiple
                     name="variantes"
-                    label="Variantes"
                     :value="recette.variantes"
                     optionnal
-                />
+                >
+                    Variantes
+                </InputLinkMultiple>
                 <button @click="addRecette()">Valider</button>
             </div>
         </div>
@@ -102,12 +110,14 @@
 import database from '@/firebase/db'
 import InputText from '@/components/ui/InputText'
 import InputTextMultiple from '@/components/ui/InputTextMultiple'
+import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
 
 export default {
     name: 'RecetteForm',
     components: {
         InputText,
         InputTextMultiple,
+        InputLinkMultiple,
     },
     data() {
         return {

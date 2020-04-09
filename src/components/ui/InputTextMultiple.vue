@@ -2,7 +2,7 @@
     <div>
         <h4>
             <label :for="name">
-                {{ label }} <span v-if="optionnal">(optionnel)</span>
+                <slot /> <span v-if="optionnal">(optionnel)</span>
             </label>
         </h4>
         <input
@@ -23,10 +23,6 @@ export default {
     name: 'InputTextMultiple',
     props: {
         name: {
-            type: String,
-            required: true,
-        },
-        label: {
             type: String,
             required: true,
         },

@@ -13,7 +13,7 @@
                     :key="index"
                     v-model="value[index].title"
                     :name="name + 'Title'"
-                    :id="name + 'Title'"
+                    :id="name + index + 'Title'"
                 />
             </div>
             <div>
@@ -27,7 +27,7 @@
                     :key="index"
                     v-model="value[index].path"
                     :name="name + 'Path'"
-                    :id="name + 'Path'"
+                    :id="name + index + 'Path'"
                 />
             </div>
         </div>

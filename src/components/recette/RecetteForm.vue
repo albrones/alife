@@ -3,11 +3,14 @@
         <router-link tag="button" to="/recettes"> Retour </router-link>
         <div class="content-recette-form">
             <div class="title">
-                <h1>Ajouter une recette</h1>
+                <h1 v-if="!isForEdit">Ajouter une recette</h1>
+                <h1 v-if="isForEdit">Editer la recette: {{ recette.title }}</h1>
             </div>
             <div class="recette-form">
-                <InputText name="title" :value="recette.title">Titre</InputText>
-                <InputText name="subtitle" :value="recette.subtitle" optionnal>
+                <InputText name="title" v-model="recette.title"
+                    >Titre</InputText
+                >
+                <InputText name="subtitle" v-model="recette.subtitle" optionnal>
                     Soustitre
                 </InputText>
                 <div v-if="false">
@@ -27,20 +30,20 @@
                     <h3>Infos Pratique</h3>
                     <InputText
                         name="preparation"
-                        :value="recette.infosPratiques.preparation"
+                        v-model="recette.infosPratiques.preparation"
                     >
                         Temps de préparation
                     </InputText>
                     <InputText
                         name="repos"
-                        :value="recette.infosPratiques.repos"
+                        v-model="recette.infosPratiques.repos"
                         optionnal
                     >
                         Temps de repos
                     </InputText>
                     <InputText
                         name="cuisson"
-                        :value="recette.infosPratiques.cuisson"
+                        v-model="recette.infosPratiques.cuisson"
                         optionnal
                     >
                         Temps de cuisson
@@ -71,7 +74,7 @@
                     <div v-if="hasSecondPart">
                         <InputText
                             name="title2"
-                            :value="recette.ingredients.secondaires.title"
+                            v-model="recette.ingredients.secondaires.title"
                         >
                             Titre deuxième partie
                         </InputText>
@@ -103,7 +106,12 @@
                 >
                     Variantes
                 </InputLinkMultiple>
-                <Button @click.native="addRecette()">Valider</Button>
+                <Button v-if="!isForEdit" @click.native="addRecette()">
+                    Ajouter recette
+                </Button>
+                <Button v-if="isForEdit" @click.native="editRecette()">
+                    Editer recette
+                </Button>
             </div>
         </div>
     </div>
@@ -126,7 +134,8 @@ export default {
     },
     data() {
         return {
-            indexVariantes: 0,
+            isForEdit: false,
+            idRecette: this.$route.params.id,
             hasSecondPart: false,
             recette: {
                 title: '',
@@ -145,6 +154,18 @@ export default {
                 astuces: [],
                 variantes: [],
             },
+        }
+    },
+    mounted() {
+        if (this.$route.params.id) {
+            this.isForEdit = true
+        }
+        if (this.isForEdit) {
+            this.getRecetteToEdit(this.idRecette)
+            const { secondaires } = this.recette.ingredients
+            if (secondaires && secondaires.title) {
+                this.hasSecondPart = true
+            }
         }
     },
     methods: {
@@ -171,7 +192,7 @@ export default {
         addSecondPart() {
             this.hasSecondPart = true
         },
-        async addRecette() {
+        addRecette() {
             const {
                 title,
                 subtitle,
@@ -183,7 +204,9 @@ export default {
                 astuces,
                 variantes,
             } = this.recette
-            await database.collection('recettes').add({
+            // if (title !== '') {
+            database.collection('recettes').add({
+                // id: title,
                 title,
                 subtitle,
                 images,
@@ -194,6 +217,24 @@ export default {
                 astuces,
                 variantes,
             })
+            // }
+        },
+        async editRecette() {
+            await database
+                .collection('recettes')
+                .doc(this.idRecette)
+                .set({
+                    ...this.recette,
+                })
+        },
+        async getRecetteToEdit() {
+            await database
+                .collection('recettes')
+                .doc(this.idRecette)
+                .get()
+                .then(doc => {
+                    this.recette = doc.data()
+                })
         },
     },
 }

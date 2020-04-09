@@ -35,6 +35,11 @@ const routes = [
         component: RecetteForm,
     },
     {
+        path: '/recettes/edit/:id',
+        name: 'Editer Recette',
+        component: RecetteForm,
+    },
+    {
         path: '/recettes/:id',
         name: 'Recette',
         component: Recette,

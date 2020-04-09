@@ -10,7 +10,7 @@
             :key="index"
             v-model="value[index]"
             :name="name"
-            :id="name"
+            :id="name + index"
         />
         <Button @click.native="addItem(value)">
             Ajouter

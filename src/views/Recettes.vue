@@ -2,23 +2,33 @@
     <div>
         <h1>Sommaire</h1>
         <div class="recettes" v-if="isLoaded">
-            <router-link
-                v-for="(recette, index) in recettes"
-                :key="index"
-                :to="'/recettes/' + recette.id"
-            >
-                {{ recette.title }}
-            </router-link>
+            <div v-for="(recette, index) in recettes" :key="index">
+                <router-link :to="'/recettes/' + recette.id">
+                    {{ recette.title }}
+                </router-link>
+                <router-link :to="'/recettes/edit/' + recette.id">
+                    Edit {{ recette.id }}
+                </router-link>
+                <Button @click.native="removeRecette(recette.id)">
+                    Suppr.
+                </Button>
+            </div>
             <br />
         </div>
-        <router-link tag="button" to="add" append>+</router-link>
+        <router-link tag="button" to="add" append>Ajouter recette</router-link>
+        <!-- <Button @click.native="removeAllRecetteSans">suppr all</Button> -->
     </div>
 </template>
 
 <script>
 import database from '@/firebase/db'
+import Button from '@/components/ui/Button'
+
 export default {
     name: 'Recettes',
+    components: {
+        Button,
+    },
     data() {
         return {
             isLoaded: false,
@@ -44,6 +54,20 @@ export default {
                     )
                 })
         },
+        async removeRecette(id) {
+            await database
+                .collection('recettes')
+                .doc(id)
+                .delete()
+        },
+        // async removeAllRecetteSans() {
+        //     this.recettes.forEach(async recette => {
+        //         await database
+        //             .collection('recettes')
+        //             .doc(recette.id)
+        //             .delete()
+        //     })
+        // },
     },
 }
 </script>

@@ -2,6 +2,7 @@
     <div id="app">
         <div class="logo">
             <!-- TODO: Add logo at left -->
+            <Logo v-if="false" />
             <h1 v-if="this.$router.currentRoute.path === '/'">
                 ALIFE
             </h1>
@@ -17,7 +18,12 @@
 </template>
 
 <script>
+import Logo from '@/components/ui/Logo'
+
 export default {
+    components: {
+        Logo,
+    },
     computed: {
         check() {
             return (

@@ -12,13 +12,15 @@
             :name="name"
             :id="name"
         />
-        <button @click="addItem(value)">
+        <Button @click.native="addItem(value)">
             Ajouter
-        </button>
+        </Button>
     </div>
 </template>
 
 <script>
+import Button from '@/components/ui/Button'
+
 export default {
     name: 'InputTextMultiple',
     props: {
@@ -34,6 +36,9 @@ export default {
             type: Boolean,
             default: false,
         },
+    },
+    components: {
+        Button,
     },
     methods: {
         addItem(array) {

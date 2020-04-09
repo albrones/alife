@@ -31,13 +31,15 @@
                 />
             </div>
         </div>
-        <button @click="addItem()">
+        <Button @click.native="addItem()">
             Ajouter
-        </button>
+        </Button>
     </div>
 </template>
 
 <script>
+import Button from '@/components/ui/Button'
+
 export default {
     name: 'InputTextMultipleDouble',
     props: {
@@ -53,6 +55,9 @@ export default {
             type: Boolean,
             default: false,
         },
+    },
+    components: {
+        Button,
     },
     methods: {
         addItem(array) {

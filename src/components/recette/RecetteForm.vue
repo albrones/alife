@@ -62,7 +62,10 @@
                         Principaux
                     </InputTextMultiple>
 
-                    <Button v-if="!hasSecondPart" :action="addSecondPart()">
+                    <Button
+                        v-if="!hasSecondPart"
+                        @click.native="addSecondPart()"
+                    >
                         Ajouter deuxième partie
                     </Button>
                     <div v-if="hasSecondPart">
@@ -100,7 +103,7 @@
                 >
                     Variantes
                 </InputLinkMultiple>
-                <button @click="addRecette()">Valider</button>
+                <Button @click.native="addRecette()">Valider</Button>
             </div>
         </div>
     </div>
@@ -111,6 +114,7 @@ import database from '@/firebase/db'
 import InputText from '@/components/ui/InputText'
 import InputTextMultiple from '@/components/ui/InputTextMultiple'
 import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
+import Button from '@/components/ui/Button'
 
 export default {
     name: 'RecetteForm',
@@ -118,6 +122,7 @@ export default {
         InputText,
         InputTextMultiple,
         InputLinkMultiple,
+        Button,
     },
     data() {
         return {

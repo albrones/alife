@@ -71,7 +71,7 @@
                     >
                         Ajouter deuxième partie
                     </Button>
-                    <div v-if="hasSecondPart">
+                    <div v-if="hasSecondPart" class="ingredients-second-part">
                         <InputText
                             name="title2"
                             v-model="recette.ingredients.secondaires.title"
@@ -248,6 +248,9 @@ export default {
     width: 50%;
     margin: 0 auto;
 }
+.ingredients-second-part {
+    width: 100%;
+}
 .recette-form div {
     margin-bottom: 16px;
     display: flex;
@@ -257,7 +260,7 @@ export default {
 }
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */
-    .content-recette {
+    .content-recette-form {
         width: 90%;
     }
 }

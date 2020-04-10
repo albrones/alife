@@ -1,8 +1,8 @@
 <template>
     <div>
         <h3><slot /> <span v-if="optionnal">(optionnel)</span></h3>
-        <div v-if="value.length > 0">
-            <div>
+        <div class="input-link-multiple" v-if="value.length > 0">
+            <div class="block">
                 <h4>
                     <label :for="name + 'Title'">
                         Titre
@@ -16,7 +16,7 @@
                     :id="name + index + 'Title'"
                 />
             </div>
-            <div>
+            <div class="block">
                 <h4>
                     <label :for="name + 'Path'">
                         Lien
@@ -31,7 +31,7 @@
                 />
             </div>
         </div>
-        <Button @click.native="addItem()">
+        <Button @click.native="addItem(value)">
             Ajouter
         </Button>
     </div>
@@ -68,7 +68,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-    text-transform: capitalize;
+.input-link-multiple {
+    width: 100%;
+}
+.block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-items: stretch;
+}
+input {
+    width: 100%;
+    border: #42b983 1px solid;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 8px;
 }
 </style>

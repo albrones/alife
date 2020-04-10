@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="input-text-multiple">
         <h4>
             <label :for="name">
                 <slot /> <span v-if="optionnal">(optionnel)</span>
@@ -49,7 +49,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-    text-transform: capitalize;
+.input-text-multiple {
+    width: 100%;
+}
+input {
+    width: 100%;
+    border: #42b983 1px solid;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 8px;
 }
 </style>

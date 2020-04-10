@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="input-text">
         <h4>
             <label :for="name">
                 <slot />
@@ -41,7 +41,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-    text-transform: capitalize;
+.input-text {
+    width: 100%;
+}
+input {
+    width: 100%;
+    border: #42b983 1px solid;
+    border-radius: 12px;
+    padding: 5px;
 }
 </style>

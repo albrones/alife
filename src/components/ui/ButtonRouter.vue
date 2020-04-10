@@ -30,5 +30,6 @@ export default {
     height: 50px;
     width: 50px;
     padding: 1px 9px 1px 7px;
+    margin-left: 5px;
 }
 </style>

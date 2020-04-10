@@ -129,7 +129,7 @@ import InputText from '@/components/ui/InputText'
 import InputTextMultiple from '@/components/ui/InputTextMultiple'
 import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
 import Button from '@/components/ui/Button'
-import Chevron from '@/components/ui/svg/Chevron'
+import Chevron from '@/components/ui/png/Chevron'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 
 export default {

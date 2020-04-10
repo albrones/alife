@@ -2,23 +2,27 @@
     <div>
         <h1>Sommaire</h1>
         <div class="recettes" v-if="isLoaded">
-            <div v-for="(recette, index) in recettes" :key="index">
+            <div
+                class="recette"
+                v-for="(recette, index) in recettes"
+                :key="index"
+            >
                 <router-link :to="'/recettes/' + recette.id">
                     {{ recette.title }}
                 </router-link>
-                <ButtonRouter :path="'/recettes/edit/' + recette.id">
-                    <Edit />
-                </ButtonRouter>
-                <Button @click.native="removeRecette(recette.id)">
-                    Suppr.
-                    <!-- TODO: Use icon -->
-                </Button>
+                <div>
+                    <ButtonRouter :path="'/recettes/edit/' + recette.id">
+                        <Edit />
+                    </ButtonRouter>
+                    <Button asIcon @click.native="removeRecette(recette.id)">
+                        <Remove />
+                    </Button>
+                </div>
             </div>
             <br />
         </div>
         <ButtonRouter path="recettes/add">
-            +
-            <!-- TODO: Use icons -->
+            <Add />
         </ButtonRouter>
         <!-- <Button @click.native="removeAllRecetteSans">suppr all</Button> -->
     </div>
@@ -29,6 +33,8 @@ import database from '@/firebase/db'
 import Button from '@/components/ui/Button'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 import Edit from '@/components/ui/png/Edit'
+import Add from '@/components/ui/png/Add'
+import Remove from '@/components/ui/png/Remove'
 
 export default {
     name: 'Recettes',
@@ -36,6 +42,8 @@ export default {
         Button,
         ButtonRouter,
         Edit,
+        Add,
+        Remove,
     },
     data() {
         return {
@@ -95,6 +103,14 @@ export default {
         &.router-link-exact-active {
             color: #42b983;
         }
+    }
+}
+.recette {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    a {
+        font-size: 20px;
     }
 }
 </style>

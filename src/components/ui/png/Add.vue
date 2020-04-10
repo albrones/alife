@@ -1,5 +1,5 @@
 <template>
-    <img src="../../../assets/edit.png" alt="edit" />
+    <img src="../../../assets/plus.png" alt="add" />
 </template>
 
 <script>

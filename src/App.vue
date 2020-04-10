@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Logo from '@/components/ui/Logo'
+import Logo from '@/components/ui/png/Logo'
 
 export default {
     components: {

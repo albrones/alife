@@ -6,16 +6,20 @@
                 <router-link :to="'/recettes/' + recette.id">
                     {{ recette.title }}
                 </router-link>
-                <router-link :to="'/recettes/edit/' + recette.id">
-                    Edit {{ recette.id }}
-                </router-link>
+                <ButtonRouter :path="'/recettes/edit/' + recette.id">
+                    <Edit />
+                </ButtonRouter>
                 <Button @click.native="removeRecette(recette.id)">
                     Suppr.
+                    <!-- TODO: Use icon -->
                 </Button>
             </div>
             <br />
         </div>
-        <router-link tag="button" to="add" append>Ajouter recette</router-link>
+        <ButtonRouter path="recettes/add">
+            +
+            <!-- TODO: Use icons -->
+        </ButtonRouter>
         <!-- <Button @click.native="removeAllRecetteSans">suppr all</Button> -->
     </div>
 </template>
@@ -23,11 +27,15 @@
 <script>
 import database from '@/firebase/db'
 import Button from '@/components/ui/Button'
+import ButtonRouter from '@/components/ui/ButtonRouter'
+import Edit from '@/components/ui/png/Edit'
 
 export default {
     name: 'Recettes',
     components: {
         Button,
+        ButtonRouter,
+        Edit,
     },
     data() {
         return {
@@ -54,11 +62,13 @@ export default {
                     )
                 })
         },
-        async removeRecette(id) {
-            await database
+        removeRecette(id) {
+            database
                 .collection('recettes')
                 .doc(id)
                 .delete()
+                .then((this.recettes = []))
+                .then(this.getSummary())
         },
         // async removeAllRecetteSans() {
         //     this.recettes.forEach(async recette => {

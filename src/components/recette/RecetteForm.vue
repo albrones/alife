@@ -1,10 +1,16 @@
 <template>
     <div>
-        <router-link tag="button" to="/recettes"> Retour </router-link>
         <div class="content-recette-form">
-            <div class="title">
-                <h1 v-if="!isForEdit">Ajouter une recette</h1>
-                <h1 v-if="isForEdit">Editer la recette: {{ recette.title }}</h1>
+            <div class="header">
+                <ButtonRouter class="button-router" path="/recettes">
+                    <Chevron />
+                </ButtonRouter>
+                <div class="title">
+                    <h1 v-if="!isForEdit">Ajouter une recette</h1>
+                    <h1 v-if="isForEdit">
+                        Editer la recette: {{ recette.title }}
+                    </h1>
+                </div>
             </div>
             <div class="recette-form">
                 <InputText name="title" v-model="recette.title"
@@ -123,6 +129,8 @@ import InputText from '@/components/ui/InputText'
 import InputTextMultiple from '@/components/ui/InputTextMultiple'
 import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
 import Button from '@/components/ui/Button'
+import Chevron from '@/components/ui/svg/Chevron'
+import ButtonRouter from '@/components/ui/ButtonRouter'
 
 export default {
     name: 'RecetteForm',
@@ -131,6 +139,8 @@ export default {
         InputTextMultiple,
         InputLinkMultiple,
         Button,
+        Chevron,
+        ButtonRouter,
     },
     data() {
         return {
@@ -250,6 +260,18 @@ export default {
 }
 .ingredients-second-part {
     width: 100%;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .button-router {
+        flex-grow: 0;
+    }
+    .title {
+        flex-grow: 1;
+        margin-right: 50px;
+    }
 }
 .recette-form div {
     margin-bottom: 16px;

@@ -214,28 +214,32 @@ export default {
                 astuces,
                 variantes,
             } = this.recette
-            // if (title !== '') {
-            database.collection('recettes').add({
-                // id: title,
-                title,
-                subtitle,
-                images,
-                infosPratiques,
-                materielConseille,
-                ingredients,
-                instructions,
-                astuces,
-                variantes,
-            })
-            // }
+            if (title !== '') {
+                database
+                    .collection('recettes')
+                    .add({
+                        // id: title,
+                        title,
+                        subtitle,
+                        images,
+                        infosPratiques,
+                        materielConseille,
+                        ingredients,
+                        instructions,
+                        astuces,
+                        variantes,
+                    })
+                    .then(doc => this.goToRecetteFinished(doc.id))
+            }
         },
-        async editRecette() {
-            await database
+        editRecette() {
+            database
                 .collection('recettes')
                 .doc(this.idRecette)
                 .set({
                     ...this.recette,
                 })
+                .then(this.goToRecetteFinished(this.idRecette))
         },
         async getRecetteToEdit() {
             await database
@@ -245,6 +249,9 @@ export default {
                 .then(doc => {
                     this.recette = doc.data()
                 })
+        },
+        goToRecetteFinished(id) {
+            this.$router.push({ path: `/recettes/${id}` })
         },
     },
 }

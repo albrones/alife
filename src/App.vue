@@ -2,7 +2,7 @@
     <div id="app">
         <div class="logo">
             <!-- TODO: Add logo at left -->
-            <Logo v-if="false" />
+            <Logo v-if="this.$router.currentRoute.path !== '/'" />
             <h1 v-if="this.$router.currentRoute.path === '/'">
                 ALIFE
             </h1>

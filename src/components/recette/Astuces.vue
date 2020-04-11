@@ -26,5 +26,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin: 0 16px;
+    text-align: initial;
 }
 </style>

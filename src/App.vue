@@ -13,7 +13,7 @@
             <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link>
         </div>
-        <router-view />
+        <router-view class="content" />
     </div>
 </template>
 
@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -66,6 +66,19 @@ export default {
         &.router-link-exact-active {
             color: #42b983;
         }
+    }
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    align-items: center;
+}
+@media only screen and (max-width: 1024px) {
+    /* For mobile phones: */
+    .content {
+        width: 100%;
     }
 }
 </style>

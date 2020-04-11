@@ -4,7 +4,7 @@
         <div class="instructions">
             <p v-for="(instruction, index) in data" :key="index">
                 <span>
-                    <strong>{{ index + 1 }})</strong>
+                    <strong>{{ index + 1 }}) </strong>
                 </span>
                 {{ instruction }}
             </p>
@@ -32,5 +32,6 @@ export default {
 }
 p {
     text-align: initial;
+    margin: 0 16px;
 }
 </style>

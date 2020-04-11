@@ -86,16 +86,13 @@ export default {
 
 <style scoped>
 /* TODO: use Grid or Flex to design correctly */
-.content-recette {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: 0 auto;
-}
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */
     .content-recette {
-        width: 90%;
+        margin: 0 16px;
     }
+}
+.content-recette {
+    align-items: unset;
 }
 </style>

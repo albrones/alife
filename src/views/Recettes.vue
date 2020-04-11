@@ -10,7 +10,7 @@
                 <router-link :to="'/recettes/' + recette.id">
                     {{ recette.title }}
                 </router-link>
-                <div>
+                <div class="actions">
                     <ButtonRouter :path="'/recettes/edit/' + recette.id">
                         <Edit />
                     </ButtonRouter>
@@ -92,25 +92,31 @@ export default {
 
 <style lang="scss" scoped>
 .recettes {
-    padding: 30px;
+    margin: 30px;
     display: flex;
     flex-direction: column;
-
-    a {
-        font-weight: bold;
-        color: #2c3e50;
-
-        &.router-link-exact-active {
-            color: #42b983;
-        }
-    }
+    width: 100%;
 }
 .recette {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin: 0 16px 16px 16px;
     a {
         font-size: 20px;
+        font-weight: bold;
+        color: #2c3e50;
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin-right: 16px;
+        display: flex;
+        &.router-link-exact-active {
+            color: #42b983;
+        }
+    }
+    .actions {
+        flex-grow: 0;
+        flex-shrink: 0;
     }
 }
 </style>

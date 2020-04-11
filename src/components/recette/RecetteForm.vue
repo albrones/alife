@@ -262,8 +262,7 @@ export default {
 .content-recette-form {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    margin: 0 auto;
+    margin: 0 8px;
 }
 .ingredients-second-part {
     width: 100%;
@@ -277,7 +276,7 @@ export default {
     }
     .title {
         flex-grow: 1;
-        margin-right: 50px;
+        margin: 0 50px;
     }
 }
 .recette-form div {
@@ -289,8 +288,8 @@ export default {
 }
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */
-    .content-recette-form {
-        width: 90%;
+    .header .title {
+        margin: 0 50px 0 0;
     }
 }
 </style>

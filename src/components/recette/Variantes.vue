@@ -29,8 +29,6 @@ export default {
 
 <style scoped>
 .variantes {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    margin: 0 16px;
 }
 </style>

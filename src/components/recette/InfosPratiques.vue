@@ -10,7 +10,7 @@
                     </strong>
                 </span>
             </div>
-            <div>
+            <div v-if="data.repos !== ''">
                 Temps de repos:
                 <span>
                     <strong>
@@ -18,7 +18,7 @@
                     </strong>
                 </span>
             </div>
-            <div>
+            <div v-if="data.cuisson !== ''">
                 Cuisson:
                 <span>
                     <strong>
@@ -47,5 +47,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-left: 16px;
 }
 </style>

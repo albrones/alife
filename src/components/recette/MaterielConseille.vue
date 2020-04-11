@@ -4,9 +4,7 @@
         <div class="materiel-conseille">
             <ul>
                 <li v-for="(materiel, index) in data" :key="index">
-                    <span
-                        ><strong>{{ materiel }}</strong></span
-                    >
+                    <span> {{ materiel }} </span>
                 </li>
             </ul>
         </div>

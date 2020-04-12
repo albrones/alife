@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import TV from '../views/TV.vue'
 import Recettes from '../views/Recettes.vue'
 import About from '../views/About.vue'
 import Recette from '../components/recette/Recette.vue'
 import RecetteForm from '../components/recette/RecetteForm.vue'
+import TVForm from '../components/TV/TVForm.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +15,21 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+    },
+    {
+        path: '/TV',
+        name: 'TV',
+        component: TV,
+    },
+    {
+        path: '/TV/add',
+        name: 'Ajout Film/Série',
+        component: TVForm,
+    },
+    {
+        path: '/TV/edit/:id',
+        name: 'Editer Film/Série',
+        component: TVForm,
     },
     {
         path: '/about',

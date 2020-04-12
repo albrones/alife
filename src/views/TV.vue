@@ -1,34 +1,30 @@
 <template>
-    <div>
-        <h1>Recettes</h1>
-        <div class="recettes" v-if="isLoaded">
-            <div
-                class="recette"
-                v-for="(recette, index) in recettes"
-                :key="index"
-            >
-                <router-link :to="'/recettes/' + recette.id">
-                    {{ recette.title }}
-                </router-link>
+    <div class="tv">
+        <h1>Films &amp; Série</h1>
+        <div class="tv-list" v-if="isLoaded">
+            <div class="item" v-for="(item, index) in watch" :key="index">
+                <!-- <router-link :to="'/TV/' + item.id"> -->
+                {{ item.title }}
+                <!-- </router-link>' -->
                 <div class="actions">
-                    <ButtonRouter :path="'/recettes/edit/' + recette.id">
+                    <ButtonRouter :path="'/TV/edit/' + item.id">
                         <Edit />
                     </ButtonRouter>
-                    <Button asIcon @click.native="removeRecette(recette.id)">
+                    <Button asIcon @click.native="removeItem(item.id)">
                         <Remove />
                     </Button>
                 </div>
             </div>
             <br />
         </div>
-        <ButtonRouter path="recettes/add">
+        <ButtonRouter path="TV/add">
             <Add />
         </ButtonRouter>
-        <!-- <Button @click.native="removeAllRecetteSans">suppr all</Button> -->
     </div>
 </template>
 
 <script>
+// @ is an alias to /src
 import database from '@/firebase/db'
 import Button from '@/components/ui/Button'
 import ButtonRouter from '@/components/ui/ButtonRouter'
@@ -37,7 +33,7 @@ import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
 
 export default {
-    name: 'Recettes',
+    name: 'TV',
     components: {
         Button,
         ButtonRouter,
@@ -48,7 +44,7 @@ export default {
     data() {
         return {
             isLoaded: false,
-            recettes: [],
+            watch: [],
         }
     },
     mounted() {
@@ -59,45 +55,37 @@ export default {
         async getSummary() {
             // TODO: Export db usage in store ???
             await database
-                .collection('recettes')
+                .collection('tv')
                 .get()
                 .then(list => {
-                    list.forEach(recette =>
-                        this.recettes.push({
-                            title: recette.get('title'),
-                            id: recette.id,
+                    list.forEach(item =>
+                        this.watch.push({
+                            title: item.get('title'),
+                            id: item.id,
                         })
                     )
                 })
         },
-        removeRecette(id) {
+        removeItem(id) {
             database
-                .collection('recettes')
+                .collection('tv')
                 .doc(id)
                 .delete()
-                .then((this.recettes = []))
+                .then((this.watch = []))
                 .then(this.getSummary())
         },
-        // async removeAllRecetteSans() {
-        //     this.recettes.forEach(async recette => {
-        //         await database
-        //             .collection('recettes')
-        //             .doc(recette.id)
-        //             .delete()
-        //     })
-        // },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.recettes {
+.tv-list {
     margin: 30px;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-.recette {
+.item {
     display: flex;
     justify-content: space-around;
     align-items: center;

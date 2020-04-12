@@ -169,8 +169,6 @@ export default {
     mounted() {
         if (this.$route.params.id) {
             this.isForEdit = true
-        }
-        if (this.isForEdit) {
             this.getRecetteToEdit(this.idRecette)
             const { secondaires } = this.recette.ingredients
             if (secondaires && secondaires.title) {

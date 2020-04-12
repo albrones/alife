@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import TV from '../views/TV.vue'
+import Music from '../views/Music.vue'
 import Recettes from '../views/Recettes.vue'
 import About from '../views/About.vue'
 import Recette from '../components/recette/Recette.vue'
 import RecetteForm from '../components/recette/RecetteForm.vue'
-import TVForm from '../components/TV/TVForm.vue'
+import TVForm from '../components/tv/TVForm.vue'
+import MusicForm from '../components/music/MusicForm.vue'
 
 Vue.use(VueRouter)
 
@@ -17,19 +19,34 @@ const routes = [
         component: Home,
     },
     {
-        path: '/TV',
+        path: '/tv',
         name: 'TV',
         component: TV,
     },
     {
-        path: '/TV/add',
+        path: '/tv/add',
         name: 'Ajout Film/Série',
         component: TVForm,
     },
     {
-        path: '/TV/edit/:id',
+        path: '/tv/edit/:id',
         name: 'Editer Film/Série',
         component: TVForm,
+    },
+    {
+        path: '/music',
+        name: 'Musique',
+        component: Music,
+    },
+    {
+        path: '/music/add',
+        name: 'Ajout Musique',
+        component: MusicForm,
+    },
+    {
+        path: '/music/edit/:id',
+        name: 'Editer Musique',
+        component: MusicForm,
     },
     {
         path: '/about',

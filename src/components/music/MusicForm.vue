@@ -1,41 +1,28 @@
 <template>
     <div>
-        <div class="content-tv-form">
+        <div class="content-music-form">
             <div class="header">
-                <ButtonRouter class="button-router" path="/tv">
+                <ButtonRouter class="button-router" path="/music">
                     <Chevron />
                 </ButtonRouter>
                 <div class="title">
-                    <h1 v-if="!isForEdit">Ajouter un film ou une série</h1>
+                    <h1 v-if="!isForEdit">Ajouter une musique</h1>
                     <h1 v-if="isForEdit">
-                        Editer le film ou la série: {{ tv.title }}
+                        Editer la musique: {{ music.title }}
                     </h1>
                 </div>
             </div>
-            <div class="tv-form">
-                <InputText name="title" v-model="tv.title">
+            <div class="music-form">
+                <InputText name="title" v-model="music.title">
                     Titre
                 </InputText>
-                <InputText name="subtitle" v-model="tv.subtitle" optionnal>
+                <InputText name="subtitle" v-model="music.subtitle" optionnal>
                     Soustitre
                 </InputText>
-                <div v-if="false">
-                    <label for="image">
-                        <h3>Image principal <span>(optionnel)</span></h3>
-                    </label>
-                    <input
-                        :value="tv.images[0]"
-                        type="file"
-                        name="image"
-                        id="image"
-                        v-on:input="searchText = $event.target.value"
-                    />
-                    <!-- TODO:  @change="upload" -->
-                </div>
-                <Button v-if="!isForEdit" @click.native="addTV()">
+                <Button v-if="!isForEdit" @click.native="addMusic()">
                     Ajouter
                 </Button>
-                <Button v-if="isForEdit" @click.native="editTV()">
+                <Button v-if="isForEdit" @click.native="editMusic()">
                     Editer
                 </Button>
             </div>
@@ -51,7 +38,7 @@ import Chevron from '@/components/ui/png/Chevron'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 
 export default {
-    name: 'TVForm',
+    name: 'musicForm',
     components: {
         InputText,
         Button,
@@ -61,18 +48,17 @@ export default {
     data() {
         return {
             isForEdit: false,
-            idTV: this.$route.params.id,
-            tv: {
+            idMusic: this.$route.params.id,
+            music: {
                 title: '',
                 subtitle: '',
-                images: [],
             },
         }
     },
     mounted() {
         if (this.$route.params.id) {
             this.isForEdit = true
-            this.getTVToEdit(this.idTV)
+            this.getMusicToEdit(this.idMusic)
         }
     },
     methods: {
@@ -96,41 +82,41 @@ export default {
             //         //handling
             //     })
         },
-        addTV() {
-            const { title, subtitle, images } = this.tv
+        addMusic() {
+            const { title, subtitle, images } = this.music
             if (title !== '') {
                 database
-                    .collection('tv')
+                    .collection('music')
                     .add({
                         // id: title,
                         title,
                         subtitle,
                         images,
                     })
-                    .then(doc => this.goToTVFinished(doc.id))
+                    .then(doc => this.goToMusicFinished(doc.id))
             }
         },
-        editTV() {
+        editMusic() {
             database
-                .collection('tv')
-                .doc(this.idTV)
+                .collection('music')
+                .doc(this.idMusic)
                 .set({
-                    ...this.tv,
+                    ...this.music,
                 })
-                .then(this.goToTVFinished(this.idTV))
+                .then(this.goToMusicFinished(this.idMusic))
         },
-        async getTVToEdit() {
+        async getMusicToEdit() {
             await database
-                .collection('tv')
-                .doc(this.idTV)
+                .collection('music')
+                .doc(this.idMusic)
                 .get()
                 .then(doc => {
-                    this.tv = doc.data()
+                    this.music = doc.data()
                 })
         },
-        goToTVFinished() {
-            // this.$router.push({ path: `/tv/${id}` }) //TODO: add fiche
-            this.$router.push({ path: `/tv` })
+        goToMusicFinished() {
+            // this.$router.push({ path: `/music/${id}` }) //TODO: add fiche
+            this.$router.push({ path: `/music` })
         },
     },
 }
@@ -138,7 +124,7 @@ export default {
 
 <style lang="scss" scoped>
 /* TODO: use Grid or Flex to design correctly */
-.content-tv-form {
+.content-music-form {
     display: flex;
     flex-direction: column;
     margin: 0 8px;
@@ -155,7 +141,7 @@ export default {
         margin: 0 50px;
     }
 }
-.tv-form div {
+.music-form div {
     margin-bottom: 16px;
     display: flex;
     flex-direction: column;

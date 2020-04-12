@@ -12,7 +12,8 @@
             <!-- <router-link to="/">Home</router-link> |
             <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link> |
-            <router-link to="/TV">TV</router-link>
+            <router-link to="/tv">TV</router-link> |
+            <router-link to="/music">Musique</router-link>
         </div>
         <router-view class="content" />
     </div>

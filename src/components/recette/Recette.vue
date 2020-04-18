@@ -3,7 +3,7 @@
         <div class="title">
             <h1>{{ recette.title }}</h1>
             <h3>
-                {{ recette.subtitle }}
+                {{ recette.subtitle }} - {{ recette.date }}
                 <!-- TODO: grisser / mettre en secondaire -->
             </h3>
         </div>
@@ -46,6 +46,7 @@ export default {
         return {
             isLoaded: false,
             recette: {
+                date: '',
                 title: '',
                 subtitle: '',
                 images: [],

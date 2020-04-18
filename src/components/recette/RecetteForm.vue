@@ -147,6 +147,7 @@ export default {
             isForEdit: false,
             idRecette: this.$route.params.id,
             hasSecondPart: false,
+            date: '',
             recette: {
                 title: '',
                 subtitle: '',
@@ -217,6 +218,7 @@ export default {
                     .collection('recettes')
                     .add({
                         // id: title,
+                        date: this.setCurrentDate(),
                         title,
                         subtitle,
                         images,
@@ -235,6 +237,7 @@ export default {
                 .collection('recettes')
                 .doc(this.idRecette)
                 .set({
+                    date: this.setCurrentDate(),
                     ...this.recette,
                 })
                 .then(this.goToRecetteFinished(this.idRecette))
@@ -250,6 +253,9 @@ export default {
         },
         goToRecetteFinished(id) {
             this.$router.push({ path: `/recettes/${id}` })
+        },
+        setCurrentDate() {
+            return new Date().toLocaleString()
         },
     },
 }

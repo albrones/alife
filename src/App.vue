@@ -1,16 +1,15 @@
 <template>
     <div id="app">
         <div class="logo">
-            <!-- TODO: Add logo at left -->
+            <!-- TODO: Add logo at left w sticky-->
             <Logo v-if="this.$router.currentRoute.path !== '/'" />
             <h1 v-if="this.$router.currentRoute.path === '/'">
                 ALIFE
             </h1>
         </div>
+        <!-- TODO: Sticky ?  -->
         <div id="nav">
-            <!-- TODO: Sticky ?  -->
-            <!-- <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link> | -->
+            <!-- <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link> |
             <router-link to="/tv">TV</router-link> |
             <router-link to="/music">Musique</router-link>

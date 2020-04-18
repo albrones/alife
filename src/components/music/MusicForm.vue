@@ -68,6 +68,7 @@ export default {
                 database
                     .collection('music')
                     .add({
+                        date: this.setCurrentDate(),
                         // id: title,
                         title,
                         artiste,
@@ -80,6 +81,7 @@ export default {
                 .collection('music')
                 .doc(this.idMusic)
                 .set({
+                    date: this.setCurrentDate(),
                     ...this.music,
                 })
                 .then(this.goToMusicFinished(this.idMusic))
@@ -96,6 +98,9 @@ export default {
         goToMusicFinished() {
             // this.$router.push({ path: `/music/${id}` }) //TODO: add fiche
             this.$router.push({ path: `/music` })
+        },
+        setCurrentDate() {
+            return new Date().toLocaleString()
         },
     },
 }

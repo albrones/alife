@@ -102,6 +102,7 @@ export default {
                 database
                     .collection('tv')
                     .add({
+                        date: this.setCurrentDate(),
                         // id: title,
                         title,
                         subtitle,
@@ -115,6 +116,7 @@ export default {
                 .collection('tv')
                 .doc(this.idTV)
                 .set({
+                    date: this.setCurrentDate(),
                     ...this.tv,
                 })
                 .then(this.goToTVFinished(this.idTV))
@@ -131,6 +133,9 @@ export default {
         goToTVFinished() {
             // this.$router.push({ path: `/tv/${id}` }) //TODO: add fiche
             this.$router.push({ path: `/tv` })
+        },
+        setCurrentDate() {
+            return new Date().toLocaleString()
         },
     },
 }

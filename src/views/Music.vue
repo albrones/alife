@@ -4,7 +4,11 @@
         <div class="music-list" v-if="isLoaded">
             <div class="item" v-for="(item, index) in music" :key="index">
                 <!-- <router-link :to="'/music/' + item.id"> -->
-                {{ item.title }}
+                <div class="title">
+                    {{ item.title }}<br />
+                    -<br />
+                    {{ item.artiste }}
+                </div>
                 <!-- </router-link>' -->
                 <div class="actions">
                     <ButtonRouter :path="'/music/edit/' + item.id">
@@ -61,6 +65,7 @@ export default {
                     list.forEach(item =>
                         this.music.push({
                             title: item.get('title'),
+                            artiste: item.get('artiste'),
                             id: item.id,
                         })
                     )
@@ -90,7 +95,8 @@ export default {
     justify-content: space-around;
     align-items: center;
     margin: 0 16px 16px 16px;
-    a {
+    a,
+    .title {
         font-size: 20px;
         font-weight: bold;
         color: #2c3e50;

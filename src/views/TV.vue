@@ -1,10 +1,12 @@
 <template>
     <div class="tv">
-        <h1>Films &amp; Série</h1>
+        <h1>Films &amp; Séries</h1>
         <div class="tv-list" v-if="isLoaded">
             <div class="item" v-for="(item, index) in tv" :key="index">
                 <!-- <router-link :to="'/tv/' + item.id"> -->
-                {{ item.title }}
+                <div class="title">
+                    {{ item.title }}
+                </div>
                 <!-- </router-link>' -->
                 <div class="actions">
                     <ButtonRouter :path="'/tv/edit/' + item.id">
@@ -90,7 +92,8 @@ export default {
     justify-content: space-around;
     align-items: center;
     margin: 0 16px 16px 16px;
-    a {
+    a,
+    .title {
         font-size: 20px;
         font-weight: bold;
         color: #2c3e50;

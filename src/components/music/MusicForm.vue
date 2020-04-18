@@ -16,8 +16,8 @@
                 <InputText name="title" v-model="music.title">
                     Titre
                 </InputText>
-                <InputText name="subtitle" v-model="music.subtitle" optionnal>
-                    Soustitre
+                <InputText name="artiste" v-model="music.artiste">
+                    Artiste
                 </InputText>
                 <Button v-if="!isForEdit" @click.native="addMusic()">
                     Ajouter
@@ -51,7 +51,7 @@ export default {
             idMusic: this.$route.params.id,
             music: {
                 title: '',
-                subtitle: '',
+                artiste: '',
             },
         }
     },
@@ -62,36 +62,15 @@ export default {
         }
     },
     methods: {
-        upload(e) {
-            //TODO
-            e.preventDefault()
-            const files = this.$$.avatar.files
-            const data = new FormData()
-            // for single file
-            data.append('avatar', files[0])
-            // Or for multiple files you can also do
-            //  _.each(files, function(v, k){
-            //    data.append('avatars['+k+']', v);
-            // });
-
-            // this.$http
-            //     .post('/avatars/upload', data, function(data, status, request) {
-            //         //handling
-            //     })
-            //     .error(function(data, status, request) {
-            //         //handling
-            //     })
-        },
         addMusic() {
-            const { title, subtitle, images } = this.music
+            const { title, artiste } = this.music
             if (title !== '') {
                 database
                     .collection('music')
                     .add({
                         // id: title,
                         title,
-                        subtitle,
-                        images,
+                        artiste,
                     })
                     .then(doc => this.goToMusicFinished(doc.id))
             }

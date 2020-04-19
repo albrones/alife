@@ -12,7 +12,7 @@
                     <ButtonRouter :path="'/series/edit/' + item.id">
                         <Edit />
                     </ButtonRouter>
-                    <Button asIcon @click.native="removeItem(item.id)">
+                    <Button asIcon @click.native="showModal(item)">
                         <Remove />
                     </Button>
                 </div>
@@ -22,6 +22,12 @@
         <ButtonRouter path="series/add">
             <Add />
         </ButtonRouter>
+        <Modal
+            v-show="isModalVisible"
+            @close="closeModal"
+            @action="removeItem"
+            :title="modalSerieTitle"
+        />
     </div>
 </template>
 
@@ -33,6 +39,7 @@ import ButtonRouter from '@/components/ui/ButtonRouter'
 import Edit from '@/components/ui/png/Edit'
 import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
+import Modal from '@/components/ui/Modal'
 
 export default {
     name: 'Series',
@@ -42,11 +49,15 @@ export default {
         Edit,
         Add,
         Remove,
+        Modal,
     },
     data() {
         return {
             isLoaded: false,
             series: [],
+            isModalVisible: false,
+            idSerieToRemove: null,
+            modalSerieTitle: '',
         }
     },
     mounted() {
@@ -68,13 +79,25 @@ export default {
                     )
                 })
         },
-        removeItem(id) {
+        removeItem() {
             database
                 .collection('series')
-                .doc(id)
+                .doc(this.idSerieToRemove)
                 .delete()
                 .then((this.series = []))
+                .then(this.closeModal)
                 .then(this.getSummary())
+        },
+        showModal(serie) {
+            this.isModalVisible = true
+            const { id, title } = serie
+            this.idSerieToRemove = id
+            this.modalSerieTitle = title
+        },
+        closeModal() {
+            this.isModalVisible = false
+            this.idSerieToRemove = null
+            this.modalSerieTitle = null
         },
     },
 }

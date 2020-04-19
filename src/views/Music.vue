@@ -14,7 +14,7 @@
                     <ButtonRouter :path="'/music/edit/' + item.id">
                         <Edit />
                     </ButtonRouter>
-                    <Button asIcon @click.native="removeItem(item.id)">
+                    <Button asIcon @click.native="showModal(item)">
                         <Remove />
                     </Button>
                 </div>
@@ -24,6 +24,12 @@
         <ButtonRouter path="music/add">
             <Add />
         </ButtonRouter>
+        <Modal
+            v-show="isModalVisible"
+            @close="closeModal"
+            @action="removeItem"
+            :title="modalMusicTitle"
+        />
     </div>
 </template>
 
@@ -35,6 +41,7 @@ import ButtonRouter from '@/components/ui/ButtonRouter'
 import Edit from '@/components/ui/png/Edit'
 import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
+import Modal from '@/components/ui/Modal'
 
 export default {
     name: 'Music',
@@ -44,11 +51,15 @@ export default {
         Edit,
         Add,
         Remove,
+        Modal,
     },
     data() {
         return {
             isLoaded: false,
             music: [],
+            isModalVisible: false,
+            iMmusicToRemove: null,
+            modalMusicTitle: '',
         }
     },
     mounted() {
@@ -71,13 +82,24 @@ export default {
                     )
                 })
         },
-        removeItem(id) {
+        removeItem() {
             database
                 .collection('music')
-                .doc(id)
+                .doc(this.iMmusicToRemove)
                 .delete()
                 .then((this.music = []))
                 .then(this.getSummary())
+        },
+        showModal(music) {
+            this.isModalVisible = true
+            const { id, title } = music
+            this.idMusicToRemove = id
+            this.modalMusicTitle = title
+        },
+        closeModal() {
+            this.isModalVisible = false
+            this.idMusicToRemove = null
+            this.modalMusicTitle = null
         },
     },
 }

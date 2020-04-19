@@ -14,7 +14,7 @@
                     <ButtonRouter :path="'/recettes/edit/' + recette.id">
                         <Edit />
                     </ButtonRouter>
-                    <Button asIcon @click.native="removeRecette(recette.id)">
+                    <Button asIcon @click.native="showModal(recette)">
                         <Remove />
                     </Button>
                 </div>
@@ -25,6 +25,12 @@
             <Add />
         </ButtonRouter>
         <!-- <Button @click.native="removeAllRecetteSans">suppr all</Button> -->
+        <Modal
+            v-show="isModalVisible"
+            @close="closeModal"
+            @action="removeRecette"
+            :title="modalRecetteTitle"
+        />
     </div>
 </template>
 
@@ -35,6 +41,7 @@ import ButtonRouter from '@/components/ui/ButtonRouter'
 import Edit from '@/components/ui/png/Edit'
 import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
+import Modal from '@/components/ui/Modal'
 
 export default {
     name: 'Recettes',
@@ -44,11 +51,15 @@ export default {
         Edit,
         Add,
         Remove,
+        Modal,
     },
     data() {
         return {
             isLoaded: false,
             recettes: [],
+            isModalVisible: false,
+            idRecetteToRemove: null,
+            modalRecetteTitle: '',
         }
     },
     mounted() {
@@ -70,12 +81,13 @@ export default {
                     )
                 })
         },
-        removeRecette(id) {
+        removeRecette() {
             database
                 .collection('recettes')
-                .doc(id)
+                .doc(this.idRecetteToRemove)
                 .delete()
                 .then((this.recettes = []))
+                .then(this.closeModal)
                 .then(this.getSummary())
         },
         // async removeAllRecetteSans() {
@@ -86,6 +98,17 @@ export default {
         //             .delete()
         //     })
         // },
+        showModal(recette) {
+            this.isModalVisible = true
+            const { id, title } = recette
+            this.idRecetteToRemove = id
+            this.modalRecetteTitle = title
+        },
+        closeModal() {
+            this.isModalVisible = false
+            this.idRecetteToRemove = null
+            this.modalRecetteTitle = null
+        },
     },
 }
 </script>
@@ -100,7 +123,7 @@ export default {
 .recette {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-recettes: center;
     margin: 0 16px 16px 16px;
     a {
         font-size: 20px;

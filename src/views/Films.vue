@@ -12,7 +12,7 @@
                     <ButtonRouter :path="'/films/edit/' + item.id">
                         <Edit />
                     </ButtonRouter>
-                    <Button asIcon @click.native="removeItem(item.id)">
+                    <Button asIcon @click.native="showModal(item)">
                         <Remove />
                     </Button>
                 </div>
@@ -22,6 +22,12 @@
         <ButtonRouter path="films/add">
             <Add />
         </ButtonRouter>
+        <Modal
+            v-show="isModalVisible"
+            @close="closeModal"
+            @action="removeItem"
+            :title="modalFilmTitle"
+        />
     </div>
 </template>
 
@@ -33,6 +39,7 @@ import ButtonRouter from '@/components/ui/ButtonRouter'
 import Edit from '@/components/ui/png/Edit'
 import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
+import Modal from '@/components/ui/Modal'
 
 export default {
     name: 'Films',
@@ -42,11 +49,15 @@ export default {
         Edit,
         Add,
         Remove,
+        Modal,
     },
     data() {
         return {
             isLoaded: false,
             films: [],
+            isModalVisible: false,
+            idFilmToRemove: null,
+            modalFilmTitle: '',
         }
     },
     mounted() {
@@ -68,13 +79,25 @@ export default {
                     )
                 })
         },
-        removeItem(id) {
+        removeItem() {
             database
                 .collection('films')
-                .doc(id)
+                .doc(this.idFilmToRemove)
                 .delete()
                 .then((this.films = []))
+                .then(this.closeModal)
                 .then(this.getSummary())
+        },
+        showModal(film) {
+            this.isModalVisible = true
+            const { id, title } = film
+            this.idFilmToRemove = id
+            this.modalFilmTitle = title
+        },
+        closeModal() {
+            this.isModalVisible = false
+            this.idFilmToRemove = null
+            this.modalFilmTitle = null
         },
     },
 }

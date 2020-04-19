@@ -1,15 +1,15 @@
 <template>
-    <div class="tv">
-        <h1>Films &amp; Séries</h1>
-        <div class="tv-list" v-if="isLoaded">
-            <div class="item" v-for="(item, index) in tv" :key="index">
-                <!-- <router-link :to="'/tv/' + item.id"> -->
+    <div class="series">
+        <h1>Séries</h1>
+        <div class="series-list" v-if="isLoaded">
+            <div class="item" v-for="(item, index) in series" :key="index">
+                <!-- <router-link :to="'/series/' + item.id"> -->
                 <div class="title">
                     {{ item.title }}
                 </div>
                 <!-- </router-link>' -->
                 <div class="actions">
-                    <ButtonRouter :path="'/tv/edit/' + item.id">
+                    <ButtonRouter :path="'/series/edit/' + item.id">
                         <Edit />
                     </ButtonRouter>
                     <Button asIcon @click.native="removeItem(item.id)">
@@ -19,7 +19,7 @@
             </div>
             <br />
         </div>
-        <ButtonRouter path="tv/add">
+        <ButtonRouter path="series/add">
             <Add />
         </ButtonRouter>
     </div>
@@ -35,7 +35,7 @@ import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
 
 export default {
-    name: 'TV',
+    name: 'Series',
     components: {
         Button,
         ButtonRouter,
@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             isLoaded: false,
-            tv: [],
+            series: [],
         }
     },
     mounted() {
@@ -57,11 +57,11 @@ export default {
         async getSummary() {
             // TODO: Export db usage in store ???
             await database
-                .collection('tv')
+                .collection('series')
                 .get()
                 .then(list => {
                     list.forEach(item =>
-                        this.tv.push({
+                        this.series.push({
                             title: item.get('title'),
                             id: item.id,
                         })
@@ -70,10 +70,10 @@ export default {
         },
         removeItem(id) {
             database
-                .collection('tv')
+                .collection('series')
                 .doc(id)
                 .delete()
-                .then((this.tv = []))
+                .then((this.series = []))
                 .then(this.getSummary())
         },
     },
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tv-list {
+.series-list {
     margin: 30px;
     display: flex;
     flex-direction: column;

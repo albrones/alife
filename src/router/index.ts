@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import TV from '../views/TV.vue'
+import Films from '../views/Films.vue'
+import Series from '../views/Series.vue'
 import Music from '../views/Music.vue'
 import Recettes from '../views/Recettes.vue'
 import About from '../views/About.vue'
 import Recette from '../components/recette/Recette.vue'
 import RecetteForm from '../components/recette/RecetteForm.vue'
-import TVForm from '../components/tv/TVForm.vue'
+import FilmsForm from '../components/films/FilmsForm.vue'
+import SeriesForm from '../components/series/SeriesForm.vue'
 import MusicForm from '../components/music/MusicForm.vue'
 
 Vue.use(VueRouter)
@@ -19,19 +21,34 @@ const routes = [
         component: Home,
     },
     {
-        path: '/tv',
-        name: 'TV',
-        component: TV,
+        path: '/films',
+        name: 'Films',
+        component: Films,
     },
     {
-        path: '/tv/add',
-        name: 'Ajout Film/Série',
-        component: TVForm,
+        path: '/series',
+        name: 'Séries',
+        component: Series,
     },
     {
-        path: '/tv/edit/:id',
-        name: 'Editer Film/Série',
-        component: TVForm,
+        path: '/films/add',
+        name: 'Ajout Film',
+        component: FilmsForm,
+    },
+    {
+        path: '/films/edit/:id',
+        name: 'Editer Film',
+        component: FilmsForm,
+    },
+    {
+        path: '/series/add',
+        name: 'Ajout Série',
+        component: SeriesForm,
+    },
+    {
+        path: '/series/edit/:id',
+        name: 'Editer Série',
+        component: SeriesForm,
     },
     {
         path: '/music',

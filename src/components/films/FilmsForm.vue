@@ -1,22 +1,20 @@
 <template>
     <div>
-        <div class="content-tv-form">
+        <div class="content-films-form">
             <div class="header">
-                <ButtonRouter class="button-router" path="/tv">
+                <ButtonRouter class="button-router" path="/films">
                     <Chevron />
                 </ButtonRouter>
                 <div class="title">
-                    <h1 v-if="!isForEdit">Ajouter un film ou une série</h1>
-                    <h1 v-if="isForEdit">
-                        Editer le film ou la série: {{ tv.title }}
-                    </h1>
+                    <h1 v-if="!isForEdit">Ajouter un film</h1>
+                    <h1 v-if="isForEdit">Editer le film: {{ films.title }}</h1>
                 </div>
             </div>
-            <div class="tv-form">
-                <InputText name="title" v-model="tv.title">
+            <div class="films-form">
+                <InputText name="title" v-model="films.title">
                     Titre
                 </InputText>
-                <InputText name="subtitle" v-model="tv.subtitle" optionnal>
+                <InputText name="subtitle" v-model="films.subtitle" optionnal>
                     Soustitre
                 </InputText>
                 <div v-if="false">
@@ -24,7 +22,7 @@
                         <h3>Image principal <span>(optionnel)</span></h3>
                     </label>
                     <input
-                        :value="tv.images[0]"
+                        :value="films.images[0]"
                         type="file"
                         name="image"
                         id="image"
@@ -32,10 +30,10 @@
                     />
                     <!-- TODO:  @change="upload" -->
                 </div>
-                <Button v-if="!isForEdit" @click.native="addTV()">
+                <Button v-if="!isForEdit" @click.native="addFilms()">
                     Ajouter
                 </Button>
-                <Button v-if="isForEdit" @click.native="editTV()">
+                <Button v-if="isForEdit" @click.native="editFilms()">
                     Editer
                 </Button>
             </div>
@@ -51,7 +49,7 @@ import Chevron from '@/components/ui/png/Chevron'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 
 export default {
-    name: 'TVForm',
+    name: 'FilmsForm',
     components: {
         InputText,
         Button,
@@ -61,8 +59,8 @@ export default {
     data() {
         return {
             isForEdit: false,
-            idTV: this.$route.params.id,
-            tv: {
+            idFilms: this.$route.params.id,
+            films: {
                 title: '',
                 subtitle: '',
                 images: [],
@@ -72,7 +70,7 @@ export default {
     mounted() {
         if (this.$route.params.id) {
             this.isForEdit = true
-            this.getTVToEdit(this.idTV)
+            this.getFilmsToEdit(this.idFilms)
         }
     },
     methods: {
@@ -96,11 +94,11 @@ export default {
             //         //handling
             //     })
         },
-        addTV() {
-            const { title, subtitle, images } = this.tv
+        addFilms() {
+            const { title, subtitle, images } = this.films
             if (title !== '') {
                 database
-                    .collection('tv')
+                    .collection('films')
                     .add({
                         date: this.setCurrentDate(),
                         // id: title,
@@ -108,31 +106,31 @@ export default {
                         subtitle,
                         images,
                     })
-                    .then(doc => this.goToTVFinished(doc.id))
+                    .then(doc => this.goToFilmsFinished(doc.id))
             }
         },
-        editTV() {
+        editFilms() {
             database
-                .collection('tv')
-                .doc(this.idTV)
+                .collection('films')
+                .doc(this.idFilms)
                 .set({
                     date: this.setCurrentDate(),
-                    ...this.tv,
+                    ...this.films,
                 })
-                .then(this.goToTVFinished(this.idTV))
+                .then(this.goToFilmsFinished(this.idFilms))
         },
-        async getTVToEdit() {
+        async getFilmsToEdit() {
             await database
-                .collection('tv')
-                .doc(this.idTV)
+                .collection('films')
+                .doc(this.idFilms)
                 .get()
                 .then(doc => {
-                    this.tv = doc.data()
+                    this.films = doc.data()
                 })
         },
-        goToTVFinished() {
-            // this.$router.push({ path: `/tv/${id}` }) //TODO: add fiche
-            this.$router.push({ path: `/tv` })
+        goToFilmsFinished() {
+            // this.$router.push({ path: `/films/${id}` }) //TODO: add fiche
+            this.$router.push({ path: `/films` })
         },
         setCurrentDate() {
             return new Date().toLocaleString()
@@ -143,7 +141,7 @@ export default {
 
 <style lang="scss" scoped>
 /* TODO: use Grid or Flex to design correctly */
-.content-tv-form {
+.content-films-form {
     display: flex;
     flex-direction: column;
     margin: 0 8px;
@@ -160,7 +158,7 @@ export default {
         margin: 0 50px;
     }
 }
-.tv-form div {
+.films-form div {
     margin-bottom: 16px;
     display: flex;
     flex-direction: column;

@@ -2,6 +2,7 @@
     <div>
         <h1>Recettes</h1>
         <div class="recettes" v-if="isLoaded">
+            <InputSearch class="input-search" v-model="searchValue" />
             <div
                 class="recette"
                 v-for="(recette, index) in recettes"
@@ -24,7 +25,6 @@
         <ButtonRouter path="recettes/add">
             <Add />
         </ButtonRouter>
-        <!-- <Button @click.native="removeAllRecetteSans">suppr all</Button> -->
         <Modal
             v-show="isModalVisible"
             @close="closeModal"
@@ -42,6 +42,7 @@ import Edit from '@/components/ui/png/Edit'
 import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
 import Modal from '@/components/ui/Modal'
+import InputSearch from '@/components/ui/InputSearch'
 
 export default {
     name: 'Recettes',
@@ -52,19 +53,28 @@ export default {
         Add,
         Remove,
         Modal,
+        InputSearch,
     },
     data() {
         return {
             isLoaded: false,
             recettes: [],
+            recettesLoaded: [],
             isModalVisible: false,
             idRecetteToRemove: null,
             modalRecetteTitle: '',
+            searchValue: '',
         }
     },
     mounted() {
         this.getSummary()
         this.isLoaded = true
+    },
+    watch: {
+        searchValue(value) {
+            console.log(value)
+            this.filterRecettes(value)
+        },
     },
     methods: {
         async getSummary() {
@@ -73,6 +83,7 @@ export default {
                 .collection('recettes')
                 .get()
                 .then(list => {
+                    this.recettes = []
                     list.forEach(recette =>
                         this.recettes.push({
                             title: recette.get('title'),
@@ -80,6 +91,7 @@ export default {
                         })
                     )
                 })
+                .then(() => (this.recettesLoaded = this.recettes))
         },
         removeRecette() {
             database
@@ -90,14 +102,6 @@ export default {
                 .then(this.closeModal)
                 .then(this.getSummary())
         },
-        // async removeAllRecetteSans() {
-        //     this.recettes.forEach(async recette => {
-        //         await database
-        //             .collection('recettes')
-        //             .doc(recette.id)
-        //             .delete()
-        //     })
-        // },
         showModal(recette) {
             this.isModalVisible = true
             const { id, title } = recette
@@ -108,6 +112,12 @@ export default {
             this.isModalVisible = false
             this.idRecetteToRemove = null
             this.modalRecetteTitle = null
+        },
+        filterRecettes(value) {
+            if (this.recettesLoaded.length > 0)
+                this.recettes = this.recettesLoaded.filter(recette =>
+                    recette.title.includes(value)
+                )
         },
     },
 }
@@ -123,7 +133,7 @@ export default {
 .recette {
     display: flex;
     justify-content: space-around;
-    align-recettes: center;
+    align-items: center;
     margin: 0 16px 16px 16px;
     a {
         font-size: 20px;
@@ -141,5 +151,10 @@ export default {
         flex-grow: 0;
         flex-shrink: 0;
     }
+}
+.input-search {
+    max-width: 500px;
+    margin: auto;
+    margin-bottom: 32px;
 }
 </style>

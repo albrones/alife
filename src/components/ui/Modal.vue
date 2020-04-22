@@ -42,10 +42,6 @@ export default {
             type: String,
             required: true,
         },
-        item: {
-            type: Object,
-            required: true,
-        },
     },
     methods: {
         close() {

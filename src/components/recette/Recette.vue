@@ -7,6 +7,7 @@
                 <!-- TODO: grisser / mettre en secondaire -->
             </h3>
         </div>
+        <Categories :value="recette.categories" :isEdit="false" />
         <!-- TODO: make all part optionnal rendered -->
         <ImageRecette :data="recette.images" />
         <InfosPratiques :data="recette.infosPratiques" />
@@ -31,6 +32,8 @@ import Ingredients from '@/components/recette/Ingredients'
 import Instructions from '@/components/recette/Instructions'
 import Astuces from '@/components/recette/Astuces'
 import Variantes from '@/components/recette/Variantes'
+import Categories from '@/components/recette/Categories'
+
 export default {
     name: 'Recette',
     components: {
@@ -41,11 +44,19 @@ export default {
         Instructions,
         Astuces,
         Variantes,
+        Categories,
     },
     data() {
         return {
             isLoaded: false,
             recette: {
+                categories: {
+                    entree: false,
+                    plat: false,
+                    dessert: false,
+                    tapas: false,
+                    cocktail: false,
+                },
                 date: '',
                 title: '',
                 subtitle: '',

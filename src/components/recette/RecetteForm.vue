@@ -19,6 +19,7 @@
                 <InputText name="subtitle" v-model="recette.subtitle" optionnal>
                     Soustitre
                 </InputText>
+                <Categories :value="recette.categories" />
                 <div v-if="false">
                     <label for="image">
                         <h3>Image principal <span>(optionnel)</span></h3>
@@ -131,6 +132,7 @@ import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
 import Button from '@/components/ui/Button'
 import Chevron from '@/components/ui/png/Chevron'
 import ButtonRouter from '@/components/ui/ButtonRouter'
+import Categories from '@/components/recette/Categories'
 
 export default {
     name: 'RecetteForm',
@@ -141,6 +143,7 @@ export default {
         Button,
         Chevron,
         ButtonRouter,
+        Categories,
     },
     data() {
         return {
@@ -149,6 +152,13 @@ export default {
             hasSecondPart: false,
             date: '',
             recette: {
+                categories: {
+                    entree: false,
+                    plat: false,
+                    dessert: false,
+                    tapas: false,
+                    cocktail: false,
+                },
                 title: '',
                 subtitle: '',
                 images: [],
@@ -203,6 +213,7 @@ export default {
         },
         addRecette() {
             const {
+                categories,
                 title,
                 subtitle,
                 images,
@@ -219,6 +230,7 @@ export default {
                     .add({
                         // id: title,
                         date: this.setCurrentDate(),
+                        categories,
                         title,
                         subtitle,
                         images,

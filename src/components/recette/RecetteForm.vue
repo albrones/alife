@@ -152,13 +152,7 @@ export default {
             hasSecondPart: false,
             date: '',
             recette: {
-                categories: {
-                    entree: false,
-                    plat: false,
-                    dessert: false,
-                    tapas: false,
-                    cocktail: false,
-                },
+                categories: [],
                 title: '',
                 subtitle: '',
                 images: [],

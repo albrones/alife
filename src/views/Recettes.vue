@@ -3,6 +3,7 @@
         <h1>Recettes</h1>
         <div class="recettes" v-if="isLoaded">
             <InputSearch class="input-search" v-model="searchValue" />
+            <Categories :value="categories" />
             <div
                 class="recette"
                 v-for="(recette, index) in recettes"
@@ -43,6 +44,7 @@ import Add from '@/components/ui/png/Add'
 import Remove from '@/components/ui/png/Remove'
 import Modal from '@/components/ui/Modal'
 import InputSearch from '@/components/ui/InputSearch'
+import Categories from '@/components/recette/Categories'
 
 export default {
     name: 'Recettes',
@@ -54,6 +56,7 @@ export default {
         Remove,
         Modal,
         InputSearch,
+        Categories,
     },
     data() {
         return {
@@ -64,6 +67,7 @@ export default {
             idRecetteToRemove: null,
             modalRecetteTitle: '',
             searchValue: '',
+            categories: [],
         }
     },
     mounted() {
@@ -72,8 +76,10 @@ export default {
     },
     watch: {
         searchValue(value) {
-            console.log(value)
             this.filterRecettes(value)
+        },
+        categories() {
+            this.filterRecettes('')
         },
     },
     methods: {
@@ -88,6 +94,7 @@ export default {
                         this.recettes.push({
                             title: recette.get('title'),
                             id: recette.id,
+                            categories: recette.get('categories'),
                         })
                     )
                 })
@@ -116,7 +123,11 @@ export default {
         filterRecettes(value) {
             if (this.recettesLoaded.length > 0)
                 this.recettes = this.recettesLoaded.filter(recette =>
-                    recette.title.includes(value)
+                    recette.title.includes(value) && this.categories.length > 0
+                        ? this.categories.some(categorie =>
+                              recette.categories.includes(categorie)
+                          )
+                        : true
                 )
         },
     },

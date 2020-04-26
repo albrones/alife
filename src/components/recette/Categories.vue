@@ -3,9 +3,9 @@
         <div class="categories">
             <button
                 :class="{
-                    active: value.tapas,
-                    'only-display': !isEdit,
-                    hidden: !isEdit && !value.tapas,
+                    active: hasValue('tapas'),
+                    'only-display': isDisplay,
+                    hidden: isDisplay && !hasValue('tapas'),
                 }"
                 @click="switchState('tapas')"
             >
@@ -13,9 +13,9 @@
             </button>
             <button
                 :class="{
-                    active: value.entree,
-                    'only-display': !isEdit,
-                    hidden: !isEdit && !value.entree,
+                    active: hasValue('entree'),
+                    'only-display': isDisplay,
+                    hidden: isDisplay && !hasValue('entree'),
                 }"
                 @click="switchState('entree')"
             >
@@ -23,9 +23,9 @@
             </button>
             <button
                 :class="{
-                    active: value.plat,
-                    'only-display': !isEdit,
-                    hidden: !isEdit && !value.plat,
+                    active: hasValue('plat'),
+                    'only-display': isDisplay,
+                    hidden: isDisplay && !hasValue('plat'),
                 }"
                 @click="switchState('plat')"
             >
@@ -33,9 +33,9 @@
             </button>
             <button
                 :class="{
-                    active: value.dessert,
-                    'only-display': !isEdit,
-                    hidden: !isEdit && !value.dessert,
+                    active: hasValue('dessert'),
+                    'only-display': isDisplay,
+                    hidden: isDisplay && !hasValue('dessert'),
                 }"
                 @click="switchState('dessert')"
             >
@@ -43,9 +43,9 @@
             </button>
             <button
                 :class="{
-                    active: value.cocktail,
-                    'only-display': !isEdit,
-                    hidden: !isEdit && !value.cocktail,
+                    active: hasValue('cocktail'),
+                    'only-display': isDisplay,
+                    hidden: isDisplay && !hasValue('cocktail'),
                 }"
                 @click="switchState('cocktail')"
             >
@@ -58,13 +58,21 @@
 <script>
 export default {
     props: {
-        value: { type: Object, required: true },
-        isEdit: { type: Boolean, required: false, default: true },
+        value: { type: Array, required: true },
+        isDisplay: { type: Boolean, required: false, default: false },
     },
     methods: {
+        hasValue(item) {
+            return this.value.includes(item)
+        },
         switchState(item) {
-            if (this.isEdit) {
-                this.value[item] = !this.value[item]
+            if (!this.isDisplay) {
+                const indexNewValue = this.value.indexOf(item)
+                if (indexNewValue !== -1) {
+                    this.value.splice(indexNewValue, 1)
+                } else {
+                    this.value.push(item)
+                }
             }
         },
     },

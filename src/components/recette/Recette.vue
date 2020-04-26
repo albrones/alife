@@ -7,7 +7,7 @@
                 <!-- TODO: grisser / mettre en secondaire -->
             </h3>
         </div>
-        <Categories :value="recette.categories" :isEdit="false" />
+        <Categories :value="recette.categories" :isDisplay="true" />
         <!-- TODO: make all part optionnal rendered -->
         <ImageRecette :data="recette.images" />
         <InfosPratiques :data="recette.infosPratiques" />
@@ -50,13 +50,7 @@ export default {
         return {
             isLoaded: false,
             recette: {
-                categories: {
-                    entree: false,
-                    plat: false,
-                    dessert: false,
-                    tapas: false,
-                    cocktail: false,
-                },
+                categories: [],
                 date: '',
                 title: '',
                 subtitle: '',

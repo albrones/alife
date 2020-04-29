@@ -16,6 +16,7 @@
         <Instructions :data="recette.instructions" />
         <Astuces :data="recette.astuces" />
         <Variantes :data="recette.variantes" />
+        <Video :data="recette.video" />
         <!-- TODO:
             Autres Photos (galerie)
          -->
@@ -33,6 +34,7 @@ import Instructions from '@/components/recette/Instructions'
 import Astuces from '@/components/recette/Astuces'
 import Variantes from '@/components/recette/Variantes'
 import Categories from '@/components/recette/Categories'
+import Video from '@/components/recette/Video'
 
 export default {
     name: 'Recette',
@@ -45,6 +47,7 @@ export default {
         Astuces,
         Variantes,
         Categories,
+        Video,
     },
     data() {
         return {
@@ -67,6 +70,7 @@ export default {
                 instructions: [],
                 astuces: [],
                 variantes: [],
+                video: '',
             },
         }
     },
@@ -83,7 +87,7 @@ export default {
                 .doc(path)
                 .get()
                 .then(doc => {
-                    this.recette = doc.data()
+                    this.recette = { ...this.recette, ...doc.data() }
                 })
         },
     },

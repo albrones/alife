@@ -13,9 +13,9 @@
                 </div>
             </div>
             <div class="recette-form">
-                <InputText name="title" v-model="recette.title"
-                    >Titre</InputText
-                >
+                <InputText name="title" v-model="recette.title">
+                    Titre
+                </InputText>
                 <InputText name="subtitle" v-model="recette.subtitle" optionnal>
                     Soustitre
                 </InputText>
@@ -113,6 +113,9 @@
                 >
                     Variantes
                 </InputLinkMultiple>
+                <InputText name="video" v-model="recette.video">
+                    Vidéo YouTube
+                </InputText>
                 <Button v-if="!isForEdit" @click.native="addRecette()">
                     Ajouter recette
                 </Button>
@@ -168,6 +171,7 @@ export default {
                 instructions: [],
                 astuces: [],
                 variantes: [],
+                video: '',
             },
         }
     },
@@ -206,39 +210,20 @@ export default {
             this.hasSecondPart = true
         },
         addRecette() {
-            const {
-                categories,
-                title,
-                subtitle,
-                images,
-                infosPratiques,
-                materielConseille,
-                ingredients,
-                instructions,
-                astuces,
-                variantes,
-            } = this.recette
-            if (title !== '') {
+            if (this.recette.title !== '') {
+                this.normalizeVideoUrl()
                 database
                     .collection('recettes')
                     .add({
-                        // id: title,
+                        // id: title, //TODO: Set Title as id ?
                         date: this.setCurrentDate(),
-                        categories,
-                        title,
-                        subtitle,
-                        images,
-                        infosPratiques,
-                        materielConseille,
-                        ingredients,
-                        instructions,
-                        astuces,
-                        variantes,
+                        ...this.recette,
                     })
                     .then(doc => this.goToRecetteFinished(doc.id))
             }
         },
         editRecette() {
+            this.normalizeVideoUrl()
             database
                 .collection('recettes')
                 .doc(this.idRecette)
@@ -254,7 +239,7 @@ export default {
                 .doc(this.idRecette)
                 .get()
                 .then(doc => {
-                    this.recette = doc.data()
+                    this.recette = { ...this.recette, ...doc.data() }
                 })
         },
         goToRecetteFinished(id) {
@@ -262,6 +247,12 @@ export default {
         },
         setCurrentDate() {
             return new Date().toLocaleString()
+        },
+        normalizeVideoUrl() {
+            this.recette.video = this.recette.video.replace(
+                'watch?v=',
+                'embed/'
+            )
         },
     },
 }

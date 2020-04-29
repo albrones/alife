@@ -3,6 +3,16 @@
         <div class="categories">
             <button
                 :class="{
+                    active: hasValue('base'),
+                    'only-display': isDisplay,
+                    hidden: isDisplay && !hasValue('base'),
+                }"
+                @click="switchState('base')"
+            >
+                Base
+            </button>
+            <button
+                :class="{
                     active: hasValue('tapas'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('tapas'),
@@ -85,6 +95,10 @@ export default {
     justify-content: space-evenly;
     width: 100%;
     flex-wrap: wrap;
+    margin-bottom: 16px;
+    button {
+        margin: 8px 8px;
+    }
 }
 button {
     min-width: 80px;

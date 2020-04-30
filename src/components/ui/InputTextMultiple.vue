@@ -12,9 +12,14 @@
             :name="name"
             :id="name + index"
         />
-        <Button @click.native="addItem(value)">
-            Ajouter
-        </Button>
+        <div>
+            <Button @click.native="addItem(value)">
+                +
+            </Button>
+            <Button @click.native="removeItem(value)">
+                -
+            </Button>
+        </div>
     </div>
 </template>
 
@@ -43,6 +48,9 @@ export default {
     methods: {
         addItem(array) {
             array.push('')
+        },
+        removeItem(array) {
+            array.pop()
         },
     },
 }

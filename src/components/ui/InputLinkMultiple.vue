@@ -1,39 +1,42 @@
 <template>
     <div>
-        <h3><slot /> <span v-if="optionnal">(optionnel)</span></h3>
+        <h4><slot /> <span v-if="optionnal">(optionnel)</span></h4>
         <div class="input-link-multiple" v-if="value.length > 0">
-            <div class="block">
-                <h4>
-                    <label :for="name + 'Title'">
-                        Titre
-                    </label>
-                </h4>
-                <input
-                    v-for="(item, index) in value"
-                    :key="index"
-                    v-model="value[index].title"
-                    :name="name + 'Title'"
-                    :id="name + index + 'Title'"
-                />
-            </div>
-            <div class="block">
-                <h4>
-                    <label :for="name + 'Path'">
-                        Lien
-                    </label>
-                </h4>
-                <input
-                    v-for="(item, index) in value"
-                    :key="index"
-                    v-model="value[index].path"
-                    :name="name + 'Path'"
-                    :id="name + index + 'Path'"
-                />
+            <div class="block" v-for="(item, index) in value" :key="index">
+                <div>
+                    <h5>
+                        <label :for="name + 'Title'">
+                            Titre
+                        </label>
+                    </h5>
+                    <input
+                        v-model="value[index].title"
+                        :name="name + 'Title'"
+                        :id="name + index + 'Title'"
+                    />
+                </div>
+                <div>
+                    <h5>
+                        <label :for="name + 'Path'">
+                            Lien
+                        </label>
+                    </h5>
+                    <input
+                        v-model="value[index].path"
+                        :name="name + 'Path'"
+                        :id="name + index + 'Path'"
+                    />
+                </div>
             </div>
         </div>
-        <Button @click.native="addItem(value)">
-            Ajouter
-        </Button>
+        <div>
+            <Button @click.native="addItem(value)">
+                +
+            </Button>
+            <Button @click.native="removeItem(value)">
+                -
+            </Button>
+        </div>
     </div>
 </template>
 
@@ -63,6 +66,9 @@ export default {
         addItem(array) {
             array.push({ title: '', path: '' })
         },
+        removeItem(array) {
+            array.pop()
+        },
     },
 }
 </script>
@@ -72,10 +78,21 @@ export default {
     width: 100%;
 }
 .block {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-items: stretch;
+    justify-content: space-between;
+    div {
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        h5 {
+            margin-right: 8px;
+        }
+    }
+    div:nth-child(1) {
+        margin-right: 8px;
+    }
 }
 input {
     width: 100%;

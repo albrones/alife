@@ -97,6 +97,7 @@ export default {
                             categories: recette.get('categories'),
                         })
                     )
+                    this.orderAlphabetical()
                 })
                 .then(() => (this.recettesLoaded = this.recettes))
         },
@@ -130,6 +131,9 @@ export default {
                           )
                         : true
                 )
+        },
+        orderAlphabetical() {
+            this.recettes.sort()
         },
     },
 }

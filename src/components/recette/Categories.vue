@@ -53,13 +53,13 @@
             </button>
             <button
                 :class="{
-                    active: hasValue('cocktail'),
+                    active: hasValue('boisson'),
                     'only-display': isDisplay,
-                    hidden: isDisplay && !hasValue('cocktail'),
+                    hidden: isDisplay && !hasValue('boisson'),
                 }"
-                @click="switchState('cocktail')"
+                @click="switchState('boisson')"
             >
-                Cocktail
+                Boisson
             </button>
         </div>
     </div>
@@ -68,7 +68,7 @@
 <script>
 export default {
     props: {
-        value: { type: Array, required: true },
+        value: { type: Array, required: false, default: () => [] },
         isDisplay: { type: Boolean, required: false, default: false },
     },
     methods: {

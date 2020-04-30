@@ -8,15 +8,22 @@
                 <div class="title">
                     <h1 v-if="!isForEdit">Ajouter une recette</h1>
                     <h1 v-if="isForEdit">
-                        Editer la recette: {{ recette.title }}
+                        Editer la recette: {{ recette.infosPrincipales.title }}
                     </h1>
                 </div>
             </div>
             <div class="recette-form">
-                <InputText name="title" v-model="recette.title">
+                <InputText
+                    name="title"
+                    v-model="recette.infosPrincipales.title"
+                >
                     Titre
                 </InputText>
-                <InputText name="subtitle" v-model="recette.subtitle" optionnal>
+                <InputText
+                    name="subtitle"
+                    v-model="recette.infosPrincipales.subtitle"
+                    optionnal
+                >
                     Soustitre
                 </InputText>
                 <Categories :value="recette.categories" />
@@ -116,7 +123,10 @@
                 <InputText name="video" v-model="recette.video">
                     Vidéo YouTube
                 </InputText>
-                <InputText name="auteur" v-model="recette.auteur">
+                <InputText
+                    name="auteur"
+                    v-model="recette.infosPrincipales.auteur"
+                >
                     Auteur
                 </InputText>
                 <Button v-if="!isForEdit" @click.native="addRecette()">
@@ -159,10 +169,10 @@ export default {
             hasSecondPart: false,
             recette: {
                 astuces: [],
-                auteur: '',
                 categories: [],
                 images: [],
                 infosPratiques: { preparation: '', repos: '', cuisson: '' },
+                infosPrincipales: { auteur: '', subtitle: '', title: '' },
                 ingredients: {
                     principaux: [],
                     secondaires: {
@@ -172,8 +182,6 @@ export default {
                 },
                 instructions: [],
                 materielConseille: [],
-                subtitle: '',
-                title: '',
                 variantes: [],
                 video: '',
             },
@@ -182,7 +190,7 @@ export default {
     mounted() {
         if (this.$route.params.id) {
             this.isForEdit = true
-            this.getRecetteToEdit(this.idRecette)
+            this.getRecetteToEdit(this.idRecette) // TODO: Export db usage in store ???
             const { secondaires } = this.recette.ingredients
             if (secondaires && secondaires.title) {
                 this.hasSecondPart = true

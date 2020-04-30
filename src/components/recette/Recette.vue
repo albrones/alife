@@ -1,15 +1,10 @@
 <template>
     <div class="content-recette" v-if="isLoaded">
-        <div class="title">
-            <h1>{{ recette.title }}</h1>
-            <h3>
-                {{ recette.subtitle }} - {{ recette.date }}
-                <!-- TODO: grisser / mettre en secondaire -->
-            </h3>
-            <h4>by {{ recette.auteur }}</h4>
-        </div>
+        <InfosPrincipales
+            :data="recette.infosPrincipales"
+            :date="recette.date"
+        />
         <Categories :value="recette.categories" :isDisplay="true" />
-        <!-- TODO: make all part optionnal rendered -->
         <ImageRecette :data="recette.images" />
         <InfosPratiques :data="recette.infosPratiques" />
         <MaterielConseille :data="recette.materielConseille" />
@@ -31,6 +26,7 @@ import Astuces from '@/components/recette/Astuces'
 import Categories from '@/components/recette/Categories'
 import ImageRecette from '@/components/recette/ImageRecette'
 import InfosPratiques from '@/components/recette/InfosPratiques'
+import InfosPrincipales from '@/components/recette/InfosPrincipales'
 import Ingredients from '@/components/recette/Ingredients'
 import Instructions from '@/components/recette/Instructions'
 import MaterielConseille from '@/components/recette/MaterielConseille'
@@ -44,6 +40,7 @@ export default {
         Categories,
         ImageRecette,
         InfosPratiques,
+        InfosPrincipales,
         Ingredients,
         Instructions,
         MaterielConseille,
@@ -56,10 +53,11 @@ export default {
             recette: {
                 recette: {
                     astuces: [],
-                    auteur: '',
                     categories: [],
+                    date: '',
                     images: [],
                     infosPratiques: { preparation: '', repos: '', cuisson: '' },
+                    infosPrincipales: { auteur: '', subtitle: '', title: '' },
                     ingredients: {
                         principaux: [],
                         secondaires: {
@@ -69,16 +67,14 @@ export default {
                     },
                     instructions: [],
                     materielConseille: [],
-                    subtitle: '',
-                    title: '',
                     variantes: [],
                     video: '',
                 },
             },
         }
     },
-    mounted() {
-        this.getRecetteById()
+    async created() {
+        await this.getRecetteById() // TODO: Export db usage in store ???
         this.isLoaded = true
     },
     methods: {

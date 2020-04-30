@@ -1,6 +1,5 @@
 // RealTime databse
 // // Set the configuration for your app ==> Move in a config file in production
-// // TODO: Replace with your project's config object
 // const config = {
 //     apiKey: 'AIzaSyAp0ao8iPQ6ac2P89YzZfh6ynCGmrjlEBo',
 //     authDomain: 'alife-api.firebaseapp.com',

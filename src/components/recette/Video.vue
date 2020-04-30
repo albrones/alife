@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="data !== ''">
         <h3>Vidéo YouTube:</h3>
         <div class="video">
             <div>
@@ -24,7 +24,8 @@ export default {
     props: {
         data: {
             type: String,
-            required: true,
+            required: false,
+            default: '',
         },
     },
 }

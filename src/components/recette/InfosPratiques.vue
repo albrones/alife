@@ -1,8 +1,12 @@
 <template>
-    <div>
+    <div
+        v-if="
+            data.preparation !== '' || data.repos !== '' || data.cuisson !== ''
+        "
+    >
         <h3>Infos pratiques:</h3>
         <div class="infos-pratiques">
-            <div>
+            <div v-if="data.preparation !== ''">
                 Temps de préparation:
                 <span>
                     <strong>
@@ -36,7 +40,8 @@ export default {
     props: {
         data: {
             type: Object,
-            required: true,
+            required: false,
+            default: () => ({ preparation: '', repos: '', cuisson: '' }),
         },
     },
 }

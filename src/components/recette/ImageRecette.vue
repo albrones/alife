@@ -15,7 +15,8 @@ export default {
     props: {
         data: {
             type: Array, //TODO: fix model
-            required: true,
+            required: false,
+            default: () => [],
         },
     },
 }

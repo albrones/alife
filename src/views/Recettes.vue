@@ -10,7 +10,7 @@
                 :key="index"
             >
                 <router-link :to="'/recettes/' + recette.id">
-                    {{ recette.title }}
+                    {{ recette.infosPrincipales.title }}
                 </router-link>
                 <div class="actions">
                     <ButtonRouter :path="'/recettes/edit/' + recette.id">
@@ -70,8 +70,8 @@ export default {
             categories: [],
         }
     },
-    mounted() {
-        this.getSummary()
+    async created() {
+        await this.getSummary()
         this.isLoaded = true
     },
     watch: {
@@ -92,7 +92,7 @@ export default {
                     this.recettes = []
                     list.forEach(recette =>
                         this.recettes.push({
-                            title: recette.get('title'),
+                            infosPrincipales: recette.get('infosPrincipales'),
                             id: recette.id,
                             categories: recette.get('categories'),
                         })
@@ -111,9 +111,9 @@ export default {
         },
         showModal(recette) {
             this.isModalVisible = true
-            const { id, title } = recette
+            const { id, infosPrincipales } = recette
             this.idRecetteToRemove = id
-            this.modalRecetteTitle = title
+            this.modalRecetteTitle = infosPrincipales.title
         },
         closeModal() {
             this.isModalVisible = false
@@ -123,7 +123,8 @@ export default {
         filterRecettes(value) {
             if (this.recettesLoaded.length > 0)
                 this.recettes = this.recettesLoaded.filter(recette =>
-                    recette.title.includes(value) && this.categories.length > 0
+                    recette.infosPrincipales.title.includes(value) &&
+                    this.categories.length > 0
                         ? this.categories.some(categorie =>
                               recette.categories.includes(categorie)
                           )

@@ -6,6 +6,7 @@
                 {{ recette.subtitle }} - {{ recette.date }}
                 <!-- TODO: grisser / mettre en secondaire -->
             </h3>
+            <h4>by {{ recette.auteur }}</h4>
         </div>
         <Categories :value="recette.categories" :isDisplay="true" />
         <!-- TODO: make all part optionnal rendered -->
@@ -25,52 +26,54 @@
 
 <script>
 import database from '@/firebase/db'
-// @ is an alias to /src
-import InfosPratiques from '@/components/recette/InfosPratiques'
-import MaterielConseille from '@/components/recette/MaterielConseille'
+
+import Astuces from '@/components/recette/Astuces'
+import Categories from '@/components/recette/Categories'
 import ImageRecette from '@/components/recette/ImageRecette'
+import InfosPratiques from '@/components/recette/InfosPratiques'
 import Ingredients from '@/components/recette/Ingredients'
 import Instructions from '@/components/recette/Instructions'
-import Astuces from '@/components/recette/Astuces'
+import MaterielConseille from '@/components/recette/MaterielConseille'
 import Variantes from '@/components/recette/Variantes'
-import Categories from '@/components/recette/Categories'
 import Video from '@/components/recette/Video'
 
 export default {
     name: 'Recette',
     components: {
-        InfosPratiques,
-        MaterielConseille,
+        Astuces,
+        Categories,
         ImageRecette,
+        InfosPratiques,
         Ingredients,
         Instructions,
-        Astuces,
+        MaterielConseille,
         Variantes,
-        Categories,
         Video,
     },
     data() {
         return {
             isLoaded: false,
             recette: {
-                categories: [],
-                date: '',
-                title: '',
-                subtitle: '',
-                images: [],
-                infosPratiques: { preparation: '', repos: '', cuisson: '' },
-                materielConseille: [],
-                ingredients: {
-                    principaux: [],
-                    secondaires: {
-                        title: '',
-                        data: [],
+                recette: {
+                    astuces: [],
+                    auteur: '',
+                    categories: [],
+                    images: [],
+                    infosPratiques: { preparation: '', repos: '', cuisson: '' },
+                    ingredients: {
+                        principaux: [],
+                        secondaires: {
+                            data: [],
+                            title: '',
+                        },
                     },
+                    instructions: [],
+                    materielConseille: [],
+                    subtitle: '',
+                    title: '',
+                    variantes: [],
+                    video: '',
                 },
-                instructions: [],
-                astuces: [],
-                variantes: [],
-                video: '',
             },
         }
     },

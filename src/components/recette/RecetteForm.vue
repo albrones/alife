@@ -116,6 +116,9 @@
                 <InputText name="video" v-model="recette.video">
                     Vidéo YouTube
                 </InputText>
+                <InputText name="auteur" v-model="recette.auteur">
+                    Auteur
+                </InputText>
                 <Button v-if="!isForEdit" @click.native="addRecette()">
                     Ajouter recette
                 </Button>
@@ -128,48 +131,49 @@
 </template>
 
 <script>
-import database from '@/firebase/db'
-import InputText from '@/components/ui/InputText'
-import InputTextMultiple from '@/components/ui/InputTextMultiple'
-import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
 import Button from '@/components/ui/Button'
-import Chevron from '@/components/ui/png/Chevron'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 import Categories from '@/components/recette/Categories'
+import Chevron from '@/components/ui/png/Chevron'
+import database from '@/firebase/db'
+import InputLinkMultiple from '@/components/ui/InputLinkMultiple'
+import InputText from '@/components/ui/InputText'
+import InputTextMultiple from '@/components/ui/InputTextMultiple'
 
 export default {
     name: 'RecetteForm',
     components: {
-        InputText,
-        InputTextMultiple,
-        InputLinkMultiple,
         Button,
-        Chevron,
         ButtonRouter,
         Categories,
+        Chevron,
+        InputLinkMultiple,
+        InputText,
+        InputTextMultiple,
     },
     data() {
         return {
-            isForEdit: false,
-            idRecette: this.$route.params.id,
-            hasSecondPart: false,
             date: '',
+            idRecette: this.$route.params.id,
+            isForEdit: false,
+            hasSecondPart: false,
             recette: {
+                astuces: [],
+                auteur: '',
                 categories: [],
-                title: '',
-                subtitle: '',
                 images: [],
                 infosPratiques: { preparation: '', repos: '', cuisson: '' },
-                materielConseille: [],
                 ingredients: {
                     principaux: [],
                     secondaires: {
-                        title: '',
                         data: [],
+                        title: '',
                     },
                 },
                 instructions: [],
-                astuces: [],
+                materielConseille: [],
+                subtitle: '',
+                title: '',
                 variantes: [],
                 video: '',
             },

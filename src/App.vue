@@ -8,7 +8,7 @@
             </h1>
         </div>
         <!-- TODO: Sticky ?  -->
-        <div id="nav">
+        <div id="nav" v-if="this.$router.currentRoute.path !== '/'">
             <!-- <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link> |
             <router-link to="/films">Films</router-link> |

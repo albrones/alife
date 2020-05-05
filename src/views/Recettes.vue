@@ -144,11 +144,9 @@ export default {
     margin: 30px;
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 .recette {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     margin: 0 16px 16px 16px;
     a {
@@ -158,7 +156,6 @@ export default {
         flex-grow: 1;
         flex-shrink: 1;
         margin-right: 16px;
-        display: flex;
         &.router-link-exact-active {
             color: #42b983;
         }

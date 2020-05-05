@@ -81,6 +81,7 @@ export default {
     /* For mobile phones: */
     .content {
         width: 100%;
+        // margin: 0 8px;
     }
 }
 </style>

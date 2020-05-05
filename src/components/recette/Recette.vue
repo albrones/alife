@@ -106,9 +106,9 @@ export default {
 /* TODO: use Grid or Flex to design correctly */
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */
-    .content-recette {
-        margin: 0 16px;
-    }
+    /* .content-recette {
+        margin: 0 8px;
+    } */
 }
 .content-recette {
     align-items: unset;

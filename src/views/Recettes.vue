@@ -141,7 +141,7 @@ export default {
 
 <style lang="scss" scoped>
 .recettes {
-    margin: 30px;
+    margin: 32px 8px;
     display: flex;
     flex-direction: column;
 }

@@ -47,11 +47,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .infos-pratiques {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 16px;
+    margin: 16px;
+    div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+        span {
+            margin-left: 8px;
+        }
+    }
 }
 </style>

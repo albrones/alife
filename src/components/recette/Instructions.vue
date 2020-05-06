@@ -32,6 +32,6 @@ export default {
 }
 p {
     text-align: initial;
-    margin: 0 16px;
+    margin: 8px 16px;
 }
 </style>

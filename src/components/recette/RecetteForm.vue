@@ -187,10 +187,10 @@ export default {
             },
         }
     },
-    mounted() {
+    async mounted() {
         if (this.$route.params.id) {
             this.isForEdit = true
-            this.getRecetteToEdit(this.idRecette) // TODO: Export db usage in store ???
+            await this.getRecetteToEdit(this.idRecette) // TODO: Export db usage in store ???
             const { secondaires } = this.recette.ingredients
             if (secondaires && secondaires.title) {
                 this.hasSecondPart = true

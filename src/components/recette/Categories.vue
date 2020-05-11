@@ -1,72 +1,77 @@
 <template>
     <div>
         <div class="categories">
-            <button
+            <Button
                 :class="{
                     active: hasValue('base'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('base'),
                 }"
-                @click="switchState('base')"
+                @click.native="switchState('base')"
             >
                 Base
-            </button>
-            <button
+            </Button>
+            <Button
                 :class="{
                     active: hasValue('tapas'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('tapas'),
                 }"
-                @click="switchState('tapas')"
+                @click.native="switchState('tapas')"
             >
                 Tapas
-            </button>
-            <button
+            </Button>
+            <Button
                 :class="{
                     active: hasValue('entree'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('entree'),
                 }"
-                @click="switchState('entree')"
+                @click.native="switchState('entree')"
             >
                 Entrée
-            </button>
-            <button
+            </Button>
+            <Button
                 :class="{
                     active: hasValue('plat'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('plat'),
                 }"
-                @click="switchState('plat')"
+                @click.native="switchState('plat')"
             >
                 Plat
-            </button>
-            <button
+            </Button>
+            <Button
                 :class="{
                     active: hasValue('dessert'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('dessert'),
                 }"
-                @click="switchState('dessert')"
+                @click.native="switchState('dessert')"
             >
                 Dessert
-            </button>
-            <button
+            </Button>
+            <Button
                 :class="{
                     active: hasValue('boisson'),
                     'only-display': isDisplay,
                     hidden: isDisplay && !hasValue('boisson'),
                 }"
-                @click="switchState('boisson')"
+                @click.native="switchState('boisson')"
             >
                 Boisson
-            </button>
+            </Button>
         </div>
     </div>
 </template>
 
 <script>
+import Button from '@/components/ui/Button'
+
 export default {
+    components: {
+        Button,
+    },
     props: {
         value: { type: Array, required: false, default: () => [] },
         isDisplay: { type: Boolean, required: false, default: false },

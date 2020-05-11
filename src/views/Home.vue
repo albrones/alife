@@ -3,18 +3,24 @@
         <h2>Bienvenue !</h2>
         <h3>Ce blog est en cours de construction.</h3>
         <div class="buttons">
-            <ButtonRouter class="home-button-router" path="/recettes">
+            <div>
+                <ButtonRouter class="home-button-router" path="/recettes">
+                    <Recettes />
+                </ButtonRouter>
                 Recettes
-            </ButtonRouter>
-            <ButtonRouter class="home-button-router" path="/films">
-                Films
-            </ButtonRouter>
-            <ButtonRouter class="home-button-router" path="/series">
-                Séries
-            </ButtonRouter>
-            <ButtonRouter class="home-button-router" path="/musique">
+            </div>
+            <div>
+                <ButtonRouter class="home-button-router" path="/cinema">
+                    <Cinema />
+                </ButtonRouter>
+                Cinema
+            </div>
+            <div>
+                <ButtonRouter class="home-button-router" path="/musique">
+                    <Musique />
+                </ButtonRouter>
                 Musique
-            </ButtonRouter>
+            </div>
         </div>
         <h3>
             Merci de suivre les instructions suivantes:
@@ -29,16 +35,29 @@
                 Windows Ctrl+Shift+R)
             </li>
         </ol>
+        <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+            >Freepik</a
+        >
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com</a
+        >
     </div>
 </template>
 
 <script>
 import ButtonRouter from '@/components/ui/ButtonRouter'
+import Musique from '@/components/ui/png/Musique'
+import Recettes from '@/components/ui/png/Recettes'
+import Cinema from '@/components/ui/png/Cinema'
 
 export default {
     name: 'Home',
     components: {
         ButtonRouter,
+        Recettes,
+        Cinema,
+        Musique,
     },
 }
 </script>
@@ -49,6 +68,12 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    div {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        font-weight: 600;
+    }
 }
 .home-button-router {
     width: 100px;
@@ -58,6 +83,6 @@ export default {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 600;
-    margin: 16px 16px;
+    margin: 16px 24px 8px 24px;
 }
 </style>

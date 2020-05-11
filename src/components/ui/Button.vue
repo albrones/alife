@@ -22,6 +22,8 @@ export default {
     font-size: 14px;
     font-weight: 600;
     color: #42b983;
+
+    box-shadow: -1px 2px 1px 0px #6b6b6b;
 }
 .as-icon {
     border-radius: 30px;
@@ -31,5 +33,6 @@ export default {
     width: 50px;
     padding: 1px 9px 1px 7px;
     margin-left: 5px;
+    box-shadow: -1px 2px 1px 0px #6b6b6b;
 }
 </style>

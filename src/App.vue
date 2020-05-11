@@ -11,8 +11,7 @@
         <div id="nav" v-if="this.$router.currentRoute.path !== '/'">
             <!-- <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link> |
-            <router-link to="/films">Films</router-link> |
-            <router-link to="/series">Series</router-link> |
+            <router-link to="/cinema">Cinema</router-link> |
             <router-link to="/music">Musique</router-link>
         </div>
         <router-view class="content" />

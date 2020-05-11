@@ -2,7 +2,7 @@
     <div>
         <div class="content-series-form">
             <div class="header">
-                <ButtonRouter class="button-router" path="/series">
+                <ButtonRouter class="button-router" path="/cinema">
                     <Chevron />
                 </ButtonRouter>
                 <div class="title">
@@ -132,7 +132,7 @@ export default {
         },
         goToSeriesFinished() {
             // this.$router.push({ path: `/series/${id}` }) //TODO: add fiche
-            this.$router.push({ path: `/series` })
+            this.$router.push({ path: `/cinema` })
         },
         setCurrentDate() {
             return new Date().toLocaleString()

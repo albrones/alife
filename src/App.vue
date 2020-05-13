@@ -12,7 +12,8 @@
             <!-- <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link> |
             <router-link to="/cinema">Cinema</router-link> |
-            <router-link to="/music">Musique</router-link>
+            <router-link to="/music">Musique</router-link> |
+            <router-link to="/pomodoro">Pomodoro</router-link>
         </div>
         <router-view class="content" />
     </div>

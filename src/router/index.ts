@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Cinema from '../views/Cinema.vue'
 import Music from '../views/Music.vue'
 import Recettes from '../views/Recettes.vue'
+import Pomodoro from '../views/Pomodoro.vue'
 import About from '../views/About.vue'
 import Recette from '../components/recette/Recette.vue'
 import RecetteForm from '../components/recette/RecetteForm.vue'
@@ -60,16 +61,6 @@ const routes = [
         component: MusicForm,
     },
     {
-        path: '/about',
-        name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // // which is lazy-loaded when the route is visited.
-        // component: () =>
-        //     import(/* webpackChunkName: "about" */ '../views/About.vue'),
-        component: About,
-    },
-    {
         path: '/recettes',
         name: 'Recettes',
         component: Recettes,
@@ -88,6 +79,21 @@ const routes = [
         path: '/recettes/:id',
         name: 'Recette',
         component: Recette,
+    },
+    {
+        path: '/pomodoro',
+        name: 'Pomodoro',
+        component: Pomodoro,
+    },
+    {
+        path: '/about',
+        name: 'About',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // // which is lazy-loaded when the route is visited.
+        // component: () =>
+        //     import(/* webpackChunkName: "about" */ '../views/About.vue'),
+        component: About,
     },
 ]
 

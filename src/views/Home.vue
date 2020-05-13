@@ -21,6 +21,12 @@
                 </ButtonRouter>
                 Musique
             </div>
+            <div>
+                <ButtonRouter class="home-button-router" path="/pomodoro">
+                    <Pomodoro />
+                </ButtonRouter>
+                Pomodoro
+            </div>
         </div>
         <h3>
             Merci de suivre les instructions suivantes:
@@ -50,6 +56,7 @@ import ButtonRouter from '@/components/ui/ButtonRouter'
 import Musique from '@/components/ui/png/Musique'
 import Recettes from '@/components/ui/png/Recettes'
 import Cinema from '@/components/ui/png/Cinema'
+import Pomodoro from '@/components/ui/png/Pomodoro'
 
 export default {
     name: 'Home',
@@ -58,6 +65,7 @@ export default {
         Recettes,
         Cinema,
         Musique,
+        Pomodoro,
     },
 }
 </script>

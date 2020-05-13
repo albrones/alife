@@ -81,8 +81,8 @@ export default {
                 .collection('music')
                 .doc(this.idMusic)
                 .set({
-                    date: this.setCurrentDate(),
                     ...this.music,
+                    date: this.setCurrentDate(),
                 })
                 .then(this.goToMusicFinished(this.idMusic))
         },

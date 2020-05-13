@@ -116,8 +116,8 @@ export default {
                 .collection('series')
                 .doc(this.idSeries)
                 .set({
-                    date: this.setCurrentDate(),
                     ...this.series,
+                    date: this.setCurrentDate(),
                 })
                 .then(this.goToSeriesFinished(this.idSeries))
         },

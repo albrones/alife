@@ -114,8 +114,8 @@ export default {
                 .collection('films')
                 .doc(this.idFilms)
                 .set({
-                    date: this.setCurrentDate(),
                     ...this.films,
+                    date: this.setCurrentDate(),
                 })
                 .then(this.goToFilmsFinished(this.idFilms))
         },

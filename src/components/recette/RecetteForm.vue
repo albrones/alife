@@ -240,8 +240,8 @@ export default {
                 .collection('recettes')
                 .doc(this.idRecette)
                 .set({
-                    date: this.setCurrentDate(),
                     ...this.recette,
+                    date: this.setCurrentDate(),
                 })
                 .then(this.goToRecetteFinished(this.idRecette))
         },

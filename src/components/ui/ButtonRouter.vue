@@ -33,5 +33,6 @@ export default {
     margin-left: 5px;
 
     box-shadow: -1px 2px 1px 0px #6b6b6b;
+    outline: none;
 }
 </style>

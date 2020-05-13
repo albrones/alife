@@ -21,7 +21,7 @@ import '@firebase/firestore'
 
 firebase.initializeApp({
     apiKey: 'AIzaSyAuMHfBC-W31uD7Q2S-Kp92pk7XpXWEeQE',
-    authDomain: 'alife-api2.firebaseapp.com',
+    authDomain: 'alife-blog.firebaseapp.com',
     projectId: 'alife-api2',
 })
 

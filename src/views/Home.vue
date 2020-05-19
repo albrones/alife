@@ -16,7 +16,7 @@
                 Cinema
             </div>
             <div>
-                <ButtonRouter class="home-button-router" path="/musique">
+                <ButtonRouter class="home-button-router" path="/music">
                     <Musique />
                 </ButtonRouter>
                 Musique

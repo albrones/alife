@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="content-music-form">
+        <div class="music-form-content">
             <div class="header">
                 <ButtonRouter class="button-router" path="/music">
                     <Chevron />
@@ -108,7 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 /* TODO: use Grid or Flex to design correctly */
-.content-music-form {
+.music-form-content {
     display: flex;
     flex-direction: column;
     margin: 0 8px;

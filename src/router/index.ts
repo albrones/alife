@@ -6,6 +6,7 @@ import Music from '../views/Music.vue'
 import Recettes from '../views/Recettes.vue'
 import Pomodoro from '../views/Pomodoro.vue'
 import About from '../views/About.vue'
+import Auth from '../views/Auth.vue'
 import Recette from '../components/recette/Recette.vue'
 import RecetteForm from '../components/recette/RecetteForm.vue'
 import FilmsForm from '../components/films/FilmsForm.vue'
@@ -19,6 +20,11 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+    },
+    {
+        path: '/auth',
+        name: 'Auth',
+        component: Auth,
     },
     {
         path: '/cinema',

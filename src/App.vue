@@ -1,11 +1,15 @@
 <template>
     <div id="app">
-        <div class="logo">
-            <!-- TODO: Add logo at left w sticky-->
-            <Logo v-if="this.$router.currentRoute.path !== '/'" />
-            <h1 v-if="this.$router.currentRoute.path === '/'">
-                ALIFE
-            </h1>
+        <div>
+            <div class="logo">
+                <!-- TODO: Add logo at left w sticky-->
+                <Logo v-if="this.$router.currentRoute.path !== '/'" />
+                <h1 v-if="this.$router.currentRoute.path === '/'">
+                    ALIFE
+                </h1>
+            </div>
+            <ButtonRouter path="/auth">Auth</ButtonRouter>
+            <!-- TODO: Move on right corner with icon and state gesture -->
         </div>
         <!-- TODO: Sticky ?  -->
         <div id="nav" v-if="this.$router.currentRoute.path !== '/'">
@@ -21,10 +25,12 @@
 
 <script>
 import Logo from '@/components/ui/png/Logo'
+import ButtonRouter from '@/components/ui/ButtonRouter'
 
 export default {
     components: {
         Logo,
+        ButtonRouter,
     },
     computed: {
         check() {

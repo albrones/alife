@@ -1,5 +1,10 @@
 <template>
-    <button :class="{ 'as-text': !asIcon, 'as-icon': asIcon }"><slot /></button>
+    <button
+        :class="{ disabled: isDisabled, 'as-text': !asIcon, 'as-icon': asIcon }"
+        :disabled="isDisabled"
+    >
+        <slot />
+    </button>
 </template>
 
 <script>
@@ -8,6 +13,15 @@ export default {
     props: {
         asIcon: {
             type: Boolean,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    computed: {
+        isDisabled() {
+            return this.disabled
         },
     },
 }
@@ -35,5 +49,8 @@ export default {
     margin-left: 5px;
     box-shadow: -1px 2px 1px 0px #6b6b6b;
     outline: none;
+}
+.disabled {
+    background-color: grey;
 }
 </style>

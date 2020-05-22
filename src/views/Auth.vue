@@ -3,26 +3,47 @@
         <div class="auth-form-content">
             <div class="header">
                 <div class="title">
-                    <!-- <h1 v-if="!isForEdit">Connexion</h1> -->
-                    <h1 v-if="isForEdit">
+                    <h1 v-if="!isRegistration">Connexion</h1>
+                    <h1 v-if="isRegistration">
                         Inscription
                     </h1>
+                    <Button @click.native="switchForm()">{{
+                        buttonTitle
+                    }}</Button>
+                    <!-- TODO: Switch icon ? -->
                 </div>
             </div>
             <div class="auth-form">
                 <InputText name="email" v-model="auth.email">
                     Email
                 </InputText>
-                <InputText name="password" v-model="auth.password">
+                <InputText
+                    name="password"
+                    type="password"
+                    v-model="auth.password"
+                >
                     Mot de passe
                 </InputText>
-                <InputText name="confirm" v-model="auth.confirm">
+                <InputText
+                    name="confirm"
+                    type="password"
+                    v-if="isRegistration"
+                    v-model="auth.confirm"
+                >
                     Confirmation
                 </InputText>
-                <!-- <Button v-if="!isForEdit" @click.native="submit()">
-                    Ajouter
-                </Button> -->
-                <Button v-if="isForEdit" @click.native="submit()">
+                <Button
+                    v-if="!isRegistration"
+                    @click.native="login()"
+                    :disabled="!enabled"
+                >
+                    Se connecter
+                </Button>
+                <Button
+                    v-if="isRegistration"
+                    @click.native="register()"
+                    :disabled="!enabled"
+                >
                     S'inscrire
                 </Button>
             </div>
@@ -43,7 +64,7 @@ export default {
     },
     data() {
         return {
-            isForEdit: false,
+            isRegistration: true,
             auth: {
                 email: '',
                 password: '',
@@ -51,17 +72,29 @@ export default {
             },
         }
     },
-    mounted() {
-        this.isForEdit = true
+    computed: {
+        buttonTitle() {
+            return this.isRegistration
+                ? 'Aller à la connexion'
+                : "Aller à l'inscription"
+        },
+        enabled() {
+            const { email, password, confirm } = this.auth
+            if (this.isRegistration) {
+                return email !== '' && password !== '' && confirm !== ''
+            } else {
+                return email !== '' && password !== ''
+            }
+        },
     },
     methods: {
-        submit() {
+        register() {
             const { email, password, confirm } = this.auth
             if (password === confirm) {
                 firebase
                     .auth()
                     .createUserWithEmailAndPassword(email, password)
-                    .then(() => console.log('Done'))
+                    .then(() => console.log('Registration done & logged'))
                     .catch(function(error) {
                         // TODO: Show error handeling for user
                         const errorCode = error.code
@@ -69,11 +102,28 @@ export default {
                         console.log(errorCode, errorMessage)
                     })
             } else {
+                // TODO: Show error handeling for user
                 console.log(email, password, confirm)
                 alert(
                     "Le mdp ne correspond pas ou un champs n'a pas été rempli"
                 )
             }
+        },
+        login() {
+            const { email, password } = this.auth
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, password)
+                .then(() => console.log('Logged in'))
+                .catch(function(error) {
+                    // TODO: Show error handeling for user
+                    const errorCode = error.code
+                    const errorMessage = error.message
+                    console.log(errorCode, errorMessage)
+                })
+        },
+        switchForm() {
+            this.isRegistration = !this.isRegistration
         },
     },
 }

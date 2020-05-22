@@ -6,7 +6,7 @@
                 <span v-if="optionnal"> (optionnel)</span>
             </label>
         </h4>
-        <input v-model="valueModel" :name="name" :id="name" />
+        <input v-model="valueModel" :name="name" :id="name" type="type" />
     </div>
 </template>
 
@@ -25,6 +25,10 @@ export default {
         optionnal: {
             type: Boolean,
             default: false,
+        },
+        type: {
+            type: String,
+            default: 'text',
         },
     },
     computed: {

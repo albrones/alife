@@ -7,7 +7,7 @@
                     <h1 v-if="isRegistration">
                         Inscription
                     </h1>
-                    <Button @click.native="switchForm()">{{
+                    <Button asIcon @click.native="switchForm()">{{
                         buttonTitle
                     }}</Button>
                     <!-- TODO: Switch icon ? -->
@@ -74,9 +74,7 @@ export default {
     },
     computed: {
         buttonTitle() {
-            return this.isRegistration
-                ? 'Aller à la connexion'
-                : "Aller à l'inscription"
+            return this.isRegistration ? 'Connexion' : 'Inscription'
         },
         enabled() {
             const { email, password, confirm } = this.auth

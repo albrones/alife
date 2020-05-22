@@ -8,7 +8,10 @@
                     ALIFE
                 </h1>
             </div>
-            <ButtonRouter path="/auth">Auth</ButtonRouter>
+            <ButtonRouter path="/auth" v-if="!isLogged">Auth</ButtonRouter>
+            <Button asIcon @click.native="signOut()" v-if="isLogged">
+                Sign out
+            </Button>
             <!-- TODO: Move on right corner with icon and state gesture -->
         </div>
         <!-- TODO: Sticky ?  -->
@@ -24,13 +27,21 @@
 </template>
 
 <script>
+import firebase from '@/firebase/firebase'
 import Logo from '@/components/ui/png/Logo'
 import ButtonRouter from '@/components/ui/ButtonRouter'
+import Button from '@/components/ui/Button'
 
 export default {
     components: {
         Logo,
+        Button,
         ButtonRouter,
+    },
+    data() {
+        return {
+            logged: false,
+        }
     },
     computed: {
         check() {
@@ -39,17 +50,43 @@ export default {
                 this.$router.currentRoute.path === '/'
             )
         },
-        mounted() {
-            const firebaseApp = document.createElement('script')
-            firebaseApp.setAttribute(
-                'src',
-                '/__/firebase/7.13.2/firebase-app.js"'
-            )
-            const firebase = document.createElement('script')
-            firebase.setAttribute('src', '/__/firebase/init.js')
-            document.head.appendChild(firebaseApp)
-            document.head.appendChild(firebase)
-            return true
+        isLogged: {
+            get() {
+                return this.logged
+            },
+            set(newStatus) {
+                this.logged = newStatus
+            },
+        },
+    },
+    mounted() {
+        this.checkUserConnected()
+    },
+    methods: {
+        checkUserConnected() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    // User is signed in.
+                    // const displayName = user.displayName
+                    // const email = user.email
+                    // const emailVerified = user.emailVerified
+                    // const photoURL = user.photoURL
+                    // const isAnonymous = user.isAnonymous
+                    // const uid = user.uid
+                    // const providerData = user.providerData
+                    // ...
+                    this.isLogged = true
+                } else {
+                    // User is signed out.
+                    this.isLogged = false
+                }
+            })
+        },
+        signOut() {
+            firebase
+                .auth()
+                .signOut()
+                .then(() => console.log('Signed out'))
         },
     },
 }

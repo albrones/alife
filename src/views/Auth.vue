@@ -3,14 +3,18 @@
         <div class="auth-form-content">
             <div class="header">
                 <div class="title">
-                    <h1 v-if="!isRegistration">Connexion</h1>
-                    <h1 v-if="isRegistration">
-                        Inscription
-                    </h1>
-                    <Button asIcon @click.native="switchForm()">{{
-                        buttonTitle
-                    }}</Button>
-                    <!-- TODO: Switch icon ? -->
+                    <div v-if="!isRegistration">
+                        <h1>Connexion</h1>
+                        <Button asIcon @click.native="switchForm()">
+                            <Connect />
+                        </Button>
+                    </div>
+                    <div v-if="isRegistration">
+                        <h1>Inscription</h1>
+                        <Button asIcon @click.native="switchForm()">
+                            <Register />
+                        </Button>
+                    </div>
                 </div>
             </div>
             <div class="auth-form">
@@ -55,12 +59,16 @@
 import firebase from '@/firebase/firebase'
 import InputText from '@/components/ui/InputText'
 import Button from '@/components/ui/Button'
+import Connect from '@/components/ui/png/Connect'
+import Register from '@/components/ui/png/Register'
 
 export default {
     name: 'authForm',
     components: {
         InputText,
         Button,
+        Connect,
+        Register,
     },
     data() {
         return {

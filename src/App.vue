@@ -3,17 +3,21 @@
         <div class="header">
             <div class="logo">
                 <!-- TODO: Add logo at left w sticky-->
-                <Logo v-if="this.$router.currentRoute.path !== '/'" />
+                <Logo
+                    class="logo-icon"
+                    v-if="this.$router.currentRoute.path !== '/'"
+                />
                 <h1 v-if="this.$router.currentRoute.path === '/'">
                     ALIFE
                 </h1>
             </div>
             <div class="auth">
-                <ButtonRouter path="/auth" v-if="!isLogged">Auth</ButtonRouter>
+                <ButtonRouter path="/auth" v-if="!isLogged">
+                    <Login />
+                </ButtonRouter>
                 <Button asIcon @click.native="signOut()" v-if="isLogged">
-                    Sign out
+                    <Logout />
                 </Button>
-                <!-- TODO: icon and state gesture -->
             </div>
         </div>
         <!-- TODO: Sticky ?  -->
@@ -31,12 +35,16 @@
 <script>
 import firebase from '@/firebase/firebase'
 import Logo from '@/components/ui/png/Logo'
+import Login from '@/components/ui/png/Login'
+import Logout from '@/components/ui/png/Logout'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 import Button from '@/components/ui/Button'
 
 export default {
     components: {
         Logo,
+        Login,
+        Logout,
         Button,
         ButtonRouter,
     },
@@ -131,6 +139,9 @@ export default {
 }
 .auth {
     padding-top: 10px;
+}
+.logo-icon {
+    display: block;
 }
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */

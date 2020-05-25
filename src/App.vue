@@ -13,7 +13,7 @@
                 <Button asIcon @click.native="signOut()" v-if="isLogged">
                     Sign out
                 </Button>
-                <!-- TODO: Move on right corner with icon and state gesture -->
+                <!-- TODO: icon and state gesture -->
             </div>
         </div>
         <!-- TODO: Sticky ?  -->

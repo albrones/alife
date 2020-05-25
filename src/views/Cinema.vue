@@ -55,7 +55,7 @@
             v-show="isModalVisible"
             @close="closeModal"
             @action="removeItem(itemFamily)"
-            :title="modalCinemaTitle"
+            :title="modalItemTitle"
         />
     </div>
 </template>

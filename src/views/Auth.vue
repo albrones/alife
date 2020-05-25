@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="auth-form">
-                <InputText name="email" v-model="auth.email">
+                <InputText name="email" type="email" v-model="auth.email">
                     Email
                 </InputText>
                 <InputText

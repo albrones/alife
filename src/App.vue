@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div>
+        <div class="header">
             <div class="logo">
                 <!-- TODO: Add logo at left w sticky-->
                 <Logo v-if="this.$router.currentRoute.path !== '/'" />
@@ -8,11 +8,13 @@
                     ALIFE
                 </h1>
             </div>
-            <ButtonRouter path="/auth" v-if="!isLogged">Auth</ButtonRouter>
-            <Button asIcon @click.native="signOut()" v-if="isLogged">
-                Sign out
-            </Button>
-            <!-- TODO: Move on right corner with icon and state gesture -->
+            <div class="auth">
+                <ButtonRouter path="/auth" v-if="!isLogged">Auth</ButtonRouter>
+                <Button asIcon @click.native="signOut()" v-if="isLogged">
+                    Sign out
+                </Button>
+                <!-- TODO: Move on right corner with icon and state gesture -->
+            </div>
         </div>
         <!-- TODO: Sticky ?  -->
         <div id="nav" v-if="this.$router.currentRoute.path !== '/'">
@@ -119,6 +121,16 @@ export default {
     width: 50%;
     margin: 0 auto;
     align-items: center;
+}
+.header {
+    display: flex;
+}
+.logo {
+    flex-grow: 1;
+    margin-left: 50px;
+}
+.auth {
+    padding-top: 10px;
 }
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */

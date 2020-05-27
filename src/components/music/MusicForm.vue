@@ -19,6 +19,7 @@
                 <InputText name="artiste" v-model="music.artiste">
                     Artiste
                 </InputText>
+
                 <Button v-if="!isForEdit" @click.native="addMusic()">
                     Ajouter
                 </Button>

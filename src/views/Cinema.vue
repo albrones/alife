@@ -9,7 +9,7 @@
                         {{ item.title }}
                     </div>
                     <!-- </router-link>' -->
-                    <div class="actions">
+                    <div class="actions" v-if="isLogged">
                         <ButtonRouter :path="'/films/edit/' + item.id">
                             <Edit />
                         </ButtonRouter>
@@ -33,7 +33,7 @@
                         {{ item.title }}
                     </div>
                     <!-- </router-link>' -->
-                    <div class="actions">
+                    <div class="actions" v-if="isLogged">
                         <ButtonRouter :path="'/series/edit/' + item.id">
                             <Edit />
                         </ButtonRouter>
@@ -47,7 +47,7 @@
                 </div>
                 <br />
             </div>
-            <ButtonRouter path="series/add">
+            <ButtonRouter v-if="isLogged" path="series/add">
                 <Add />
             </ButtonRouter>
         </div>
@@ -93,6 +93,11 @@ export default {
     },
     mounted() {
         this.getSummary()
+    },
+    computed: {
+        isLogged() {
+            return this.$store.state.user && this.$store.state.user.email
+        },
     },
     methods: {
         async getSummary() {

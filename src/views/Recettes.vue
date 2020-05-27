@@ -12,7 +12,7 @@
                 <router-link :to="'/recettes/' + recette.id">
                     {{ recette.infosPrincipales.title }}
                 </router-link>
-                <div class="actions">
+                <div class="actions" v-if="isLogged">
                     <ButtonRouter :path="'/recettes/edit/' + recette.id">
                         <Edit />
                     </ButtonRouter>
@@ -23,7 +23,7 @@
             </div>
             <br />
         </div>
-        <ButtonRouter path="recettes/add">
+        <ButtonRouter v-if="isLogged" path="recettes/add">
             <Add />
         </ButtonRouter>
         <Modal
@@ -80,6 +80,11 @@ export default {
         },
         categories() {
             this.filterRecettes('')
+        },
+    },
+    computed: {
+        isLogged() {
+            return this.$store.state.user && this.$store.state.user.email
         },
     },
     methods: {

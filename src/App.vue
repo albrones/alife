@@ -77,13 +77,26 @@ export default {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     // User is signed in.
-                    // const displayName = user.displayName
-                    // const email = user.email
-                    // const emailVerified = user.emailVerified
-                    // const photoURL = user.photoURL
-                    // const isAnonymous = user.isAnonymous
-                    // const uid = user.uid
-                    // const providerData = user.providerData
+                    const {
+                        displayName,
+                        email,
+                        emailVerified,
+                        photoURL,
+                        isAnonymous,
+                        uid,
+                        providerData,
+                    } = user
+
+                    const userData = {
+                        displayName,
+                        email,
+                        emailVerified,
+                        photoURL,
+                        isAnonymous,
+                        uid,
+                        providerData,
+                    }
+                    this.$store.commit('saveUserInfo', userData)
                     // ...
                     this.isLogged = true
                 } else {
@@ -96,6 +109,7 @@ export default {
             firebase
                 .auth()
                 .signOut()
+                .then(this.$store.commit('removeUserInfo'))
                 .then(() => console.info('Logged out'))
         },
     },

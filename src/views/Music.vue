@@ -10,7 +10,7 @@
                     {{ item.artiste }}
                 </div>
                 <!-- </router-link>' -->
-                <div class="actions">
+                <div class="actions" v-if="isLogged">
                     <ButtonRouter :path="'/music/edit/' + item.id">
                         <Edit />
                     </ButtonRouter>
@@ -21,7 +21,7 @@
             </div>
             <br />
         </div>
-        <ButtonRouter path="music/add">
+        <ButtonRouter v-if="isLogged" path="music/add">
             <Add />
         </ButtonRouter>
         <Modal
@@ -65,6 +65,11 @@ export default {
     mounted() {
         this.getSummary()
         this.isLoaded = true
+    },
+    computed: {
+        isLogged() {
+            return this.$store.state.user && this.$store.state.user.email
+        },
     },
     methods: {
         async getSummary() {

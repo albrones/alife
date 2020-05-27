@@ -15,7 +15,7 @@
                 <ButtonRouter path="/auth" v-if="!isLogged">
                     <Login />
                 </ButtonRouter>
-                <Button asIcon @click.native="signOut()" v-if="isLogged">
+                <Button asIcon @click.native="logout()" v-if="isLogged">
                     <Logout />
                 </Button>
             </div>
@@ -92,11 +92,11 @@ export default {
                 }
             })
         },
-        signOut() {
+        logout() {
             firebase
                 .auth()
                 .signOut()
-                .then(() => console.log('Signed out'))
+                .then(() => console.info('Logged out'))
         },
     },
 }

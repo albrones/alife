@@ -93,6 +93,7 @@ export default {
             }
         },
     },
+
     methods: {
         register() {
             const { email, password, confirm } = this.auth
@@ -107,7 +108,10 @@ export default {
                     firebase
                         .auth()
                         .createUserWithEmailAndPassword(email, password)
-                        .then(() => console.info('Registration done & logged'))
+                        .then(() => {
+                            console.info('Registration done & logged in')
+                            this.$router.push({ path: '/' })
+                        })
                         .catch(function(error) {
                             // TODO: Show error handeling for user
                             const errorCode = error.code
@@ -128,7 +132,10 @@ export default {
             firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password)
-                .then(() => console.info('Logged in'))
+                .then(() => {
+                    console.info('Logged in')
+                    this.$router.push({ path: '/' })
+                })
                 .catch(function(error) {
                     // TODO: Show error handeling for user
                     const errorCode = error.code

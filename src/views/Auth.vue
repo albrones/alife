@@ -72,7 +72,7 @@ export default {
     },
     data() {
         return {
-            isRegistration: true,
+            isRegistration: false, //False when registration blocked
             auth: {
                 email: '',
                 password: '',
@@ -96,23 +96,31 @@ export default {
     methods: {
         register() {
             const { email, password, confirm } = this.auth
-            if (password === confirm) {
-                firebase
-                    .auth()
-                    .createUserWithEmailAndPassword(email, password)
-                    .then(() => console.log('Registration done & logged'))
-                    .catch(function(error) {
-                        // TODO: Show error handeling for user
-                        const errorCode = error.code
-                        const errorMessage = error.message
-                        console.log(errorCode, errorMessage)
-                    })
-            } else {
-                // TODO: Show error handeling for user
-                console.log(email, password, confirm)
+            // When blocking registration
+            // eslint-disable-next-line no-constant-condition
+            if (true) {
                 alert(
-                    "Le mdp ne correspond pas ou un champs n'a pas été rempli"
+                    "L'inscription est temporairement bloquée, veuillez contacter l'administrateur."
                 )
+            } else {
+                if (password === confirm) {
+                    firebase
+                        .auth()
+                        .createUserWithEmailAndPassword(email, password)
+                        .then(() => console.info('Registration done & logged'))
+                        .catch(function(error) {
+                            // TODO: Show error handeling for user
+                            const errorCode = error.code
+                            const errorMessage = error.message
+                            console.error(errorCode, errorMessage)
+                        })
+                } else {
+                    // TODO: Show error handeling for user
+                    console.error(email, password, confirm)
+                    alert(
+                        "Le mdp ne correspond pas ou un champs n'a pas été rempli"
+                    )
+                }
             }
         },
         login() {
@@ -120,12 +128,12 @@ export default {
             firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password)
-                .then(() => console.log('Logged in'))
+                .then(() => console.info('Logged in'))
                 .catch(function(error) {
                     // TODO: Show error handeling for user
                     const errorCode = error.code
                     const errorMessage = error.message
-                    console.log(errorCode, errorMessage)
+                    console.error(errorCode, errorMessage)
                 })
         },
         switchForm() {

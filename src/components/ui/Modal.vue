@@ -8,21 +8,18 @@
                     </slot>
                 </header> -->
                 <section class="modal-body">
-                    <slot name="body">
-                        Etes-vous sur de vouloir supprimer
-                        <strong> {{ title }} </strong> ?
-                    </slot>
+                    Etes-vous sur de vouloir supprimer
+                    <strong> {{ title }} </strong> ?
+                    <slot />
                 </section>
                 <footer class="modal-footer">
-                    <slot name="footer">
-                        <Button class="btn-green" @click.native="action">
-                            Parfaitement
-                        </Button>
+                    <Button type="validate" @click.native="action">
+                        Parfaitement
+                    </Button>
 
-                        <Button class="btn-close" @click.native="close">
-                            Close me!
-                        </Button>
-                    </slot>
+                    <Button @click.native="close">
+                        Close me!
+                    </Button>
                 </footer>
             </div>
         </div>
@@ -97,24 +94,6 @@ export default {
 .modal-body {
     position: relative;
     padding: 20px 10px;
-}
-
-.btn-close {
-    /* border: none; */
-    font-size: 20px;
-    padding: 20px;
-    margin-left: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4aae9b;
-    background: transparent;
-}
-
-.btn-green {
-    color: white !important;
-    background: #4aae9b;
-    border: 1px solid #4aae9b;
-    border-radius: 2px;
 }
 .modal-fade-enter,
 .modal-fade-leave-active {

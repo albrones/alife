@@ -1,27 +1,23 @@
 <template>
     <div id="app">
         <div class="header">
-            <div class="logo">
+            <div class="logo" :class="{ 'as-right-button': !onAuthPage }">
                 <!-- TODO: Add logo at left w sticky-->
-                <Logo
-                    class="logo-icon"
-                    v-if="this.$router.currentRoute.path !== '/'"
-                />
-                <h1 v-if="this.$router.currentRoute.path === '/'">
-                    ALIFE
-                </h1>
+                <Logo class="logo-icon" v-if="!onHomepage" />
+                <h1 v-if="onHomepage">ALIFE</h1>
             </div>
             <div class="auth">
-                <ButtonRouter path="/auth" v-if="!isLogged">
-                    <Login />
+                <ButtonRouter path="/auth" v-if="!isLogged && !onAuthPage">
+                    <Register />
                 </ButtonRouter>
-                <Button asIcon @click.native="logout()" v-if="isLogged">
-                    <Logout />
-                </Button>
+                <!-- {{ userName }} -->
+                <ButtonRouter path="/profile" v-if="isLogged">
+                    <Profile />
+                </ButtonRouter>
             </div>
         </div>
         <!-- TODO: Sticky ?  -->
-        <div id="nav" v-if="this.$router.currentRoute.path !== '/'">
+        <div id="nav" v-if="onHomepage">
             <!-- <router-link to="/about">About</router-link> | -->
             <router-link to="/recettes">Recettes</router-link> |
             <router-link to="/cinema">Cinema</router-link> |
@@ -35,30 +31,29 @@
 <script>
 import firebase from '@/firebase/firebase'
 import Logo from '@/components/ui/png/Logo'
-import Login from '@/components/ui/png/Login'
-import Logout from '@/components/ui/png/Logout'
+import Register from '@/components/ui/png/Register'
+import Profile from '@/components/ui/png/Profile'
 import ButtonRouter from '@/components/ui/ButtonRouter'
-import Button from '@/components/ui/Button'
 
 export default {
     components: {
         Logo,
-        Login,
-        Logout,
-        Button,
+        Register,
+        Profile,
         ButtonRouter,
     },
     data() {
         return {
             logged: false,
+            userName: '',
         }
     },
     computed: {
-        check() {
-            return (
-                // this.$router.currentRoute === this.$route
-                this.$router.currentRoute.path === '/'
-            )
+        onHomepage() {
+            return this.$route.path === '/'
+        },
+        onAuthPage() {
+            return this.$route.path === '/auth'
         },
         isLogged: {
             get() {
@@ -96,21 +91,15 @@ export default {
                         uid,
                         providerData,
                     }
+                    this.userName = displayName
                     this.$store.commit('saveUserInfo', userData)
-                    // ...
                     this.isLogged = true
                 } else {
                     // User is signed out.
+                    this.$store.commit('removeUserInfo')
                     this.isLogged = false
                 }
             })
-        },
-        logout() {
-            firebase
-                .auth()
-                .signOut()
-                .then(this.$store.commit('removeUserInfo'))
-                .then(() => console.info('Logged out'))
         },
     },
 }
@@ -146,13 +135,17 @@ export default {
 }
 .header {
     display: flex;
+    align-items: center;
 }
 .logo {
     flex-grow: 1;
+}
+.as-right-button {
     margin-left: 50px;
 }
 .auth {
-    padding-top: 10px;
+    padding: 10px 0 16px 0;
+    flex-grow: 0;
 }
 .logo-icon {
     display: block;

@@ -26,7 +26,7 @@ export default {
 
     border-radius: 30px;
     border: #42b983 solid 1px;
-    background-color: white;
+    background-color: #fcfefd;
     height: 50px;
     width: 50px;
     padding: 1px 9px 1px 7px;

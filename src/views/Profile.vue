@@ -8,48 +8,23 @@
             </div>
             <div class="profile">
                 <div class="actions">
-                    <Button
-                        type="attention"
-                        @click.native="showModal()"
-                        v-if="activated"
-                    >
+                    <Button type="attention" @click.native="changePassword()">
                         Changer MDP
                     </Button>
                     <Button type="warning" @click.native="logout()">
                         Se déconnecter
                     </Button>
                 </div>
-                <InputText name="email" type="email" v-model="email">
-                    Email
+                <InputText name="email" type="email" v-model="profile.email">
+                    Email (Actuel: {{ email }})
                 </InputText>
-                <InputText name="nom" v-model="displayName">
-                    Nom
+                <InputText name="nom" v-model="profile.name">
+                    Nom (Actuel: {{ displayName }})
                 </InputText>
                 <Button @click.native="updateUserInfo()">
                     Enregistrer
                 </Button>
             </div>
-            <Modal
-                v-show="isModalVisible"
-                @close="closeModal"
-                @action="alert('a')"
-                title="Changer de mdp"
-            >
-                <InputText
-                    name="password"
-                    type="password"
-                    v-model="profile.password"
-                >
-                    Mot de passe
-                </InputText>
-                <InputText
-                    name="confirm"
-                    type="password"
-                    v-model="profile.confirm"
-                >
-                    Confirmation
-                </InputText>
-            </Modal>
         </div>
     </div>
 </template>
@@ -58,41 +33,30 @@
 import firebase from '@/firebase/firebase'
 import Button from '@/components/ui/Button'
 import InputText from '@/components/ui/InputText'
-import Modal from '@/components/ui/Modal'
 
 export default {
     name: 'Profile',
     components: {
         Button,
         InputText,
-        Modal,
     },
     data() {
         return {
             profile: {
                 password: '',
                 confirm: '',
+                email: '',
+                name: '',
             },
-            isModalVisible: false,
             activated: false,
         }
     },
     computed: {
-        email: {
-            get() {
-                return this.$store.state.user.email
-            },
-            set(newStatus) {
-                this.email = newStatus
-            },
+        email() {
+            return this.$store.state.user.email
         },
-        displayName: {
-            get() {
-                return this.$store.state.user.displayName
-            },
-            set(newStatus) {
-                this.displayName = newStatus
-            },
+        displayName() {
+            return this.$store.state.user.displayName
         },
     },
     methods: {
@@ -117,11 +81,20 @@ export default {
                     this.$router.push({ path: '/' })
                 })
         },
-        showModal() {
-            this.isModalVisible = true
-        },
-        closeModal() {
-            this.isModalVisible = false
+        changePassword() {
+            firebase.auth().languageCode = 'fr'
+            const auth = firebase.auth()
+
+            auth.sendPasswordResetEmail(this.email)
+                .then(function() {
+                    // TODO: Show error handeling for user
+                    console.info('Email sent')
+                    alert('Un email vous a été envoyé.') //TODO: Toaster ?
+                })
+                .catch(function(error) {
+                    // TODO: Show error handeling for user
+                    console.error(error)
+                })
         },
     },
 }
@@ -153,5 +126,10 @@ export default {
     .header .title {
         margin: 0 50px 0 0;
     }
+}
+
+.modal-body .input-text {
+    margin: 8px 16px 8px 8px;
+    width: auto;
 }
 </style>

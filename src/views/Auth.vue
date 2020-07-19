@@ -105,6 +105,8 @@ export default {
                 )
             } else {
                 if (password === confirm) {
+                    // TODO: Use email verification ?
+                    // TODO: save user in DB for grant usage ?
                     firebase
                         .auth()
                         .createUserWithEmailAndPassword(email, password)

@@ -15,12 +15,33 @@
                         Se déconnecter
                     </Button>
                 </div>
-                <InputText name="email" type="email" v-model="profile.email">
-                    Email (Actuel: {{ email }})
-                </InputText>
+                <!-- <InputText name="email" type="email" v-model="profile.email">
+                    Email ({{ email }})
+                </InputText> -->
                 <InputText name="nom" v-model="profile.name">
-                    Nom (Actuel: {{ displayName }})
+                    Nom ({{ displayName }})
                 </InputText>
+                <!-- TODO: avatar choose/change  -->
+                <!-- Avatar
+                <input
+                    name="avatar"
+                    type="file"
+                    :value="profile.avatar"
+                    id="avatar"
+                    :onchange="previewImage()"
+                /> -->
+                <InputText
+                    name="avatarInput"
+                    type="file"
+                    v-model="profile.avatar"
+                    accept=".jpg,.jpeg,.png"
+                    @change.native="previewImage()"
+                >
+                    Avatar
+                </InputText>
+                <div>
+                    <img :src="profile.avatar" alt="" id="avatarPreview" />
+                </div>
                 <Button @click.native="updateUserInfo()">
                     Enregistrer
                 </Button>
@@ -31,6 +52,7 @@
 
 <script>
 import firebase from '@/firebase/firebase'
+import storage from '@/firebase/storage'
 import Button from '@/components/ui/Button'
 import InputText from '@/components/ui/InputText'
 
@@ -47,9 +69,17 @@ export default {
                 confirm: '',
                 email: '',
                 name: '',
+                avatar: '',
             },
+            newAvatar: '',
             activated: false,
         }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.loadInfos()
+            this.uploadImage()
+        })
     },
     computed: {
         email() {
@@ -58,18 +88,32 @@ export default {
         displayName() {
             return this.$store.state.user.displayName
         },
+        photoURL() {
+            return this.newAvatar
+                ? this.newAvatar
+                : this.$store.state.user.photoURL
+        },
     },
     methods: {
         updateUserInfo() {
             const user = firebase.auth().currentUser
             const userData = {
-                email: this.email,
-                displayName: this.displayName,
+                // email: this.profile.email,
+                displayName: this.profile.name,
+                photoURL: this.profile.avatar,
             }
+
             user.updateProfile(userData).then(() => {
                 this.$store.commit('saveUserInfo', userData)
                 console.info('Logged out')
             })
+            // user.updateEmail(this.profile.email)
+            //     .then(() => {
+            //         console.info('Email changed')
+            //     })
+            //     .catch(error => {
+            //         console.error(error)
+            //     })
         },
         logout() {
             firebase
@@ -86,15 +130,61 @@ export default {
             const auth = firebase.auth()
 
             auth.sendPasswordResetEmail(this.email)
-                .then(function() {
+                .then(() => {
                     // TODO: Show error handeling for user
                     console.info('Email sent')
                     alert('Un email vous a été envoyé.') //TODO: Toaster ?
                 })
-                .catch(function(error) {
+                .catch(error => {
                     // TODO: Show error handeling for user
                     console.error(error)
                 })
+        },
+        uploadImage() {
+            const storageRef = storage.ref()
+            storageRef
+                .child('avatars/logo-alife.png')
+                .getDownloadURL()
+                .then(url => {
+                    // `url` is the download URL for 'images/stars.jpg'
+
+                    // This can be downloaded directly:
+                    const xhr = new XMLHttpRequest()
+                    xhr.responseType = 'blob'
+                    xhr.onload = event => {
+                        const blob = xhr.response
+                    }
+                    xhr.open('GET', url)
+                    xhr.send()
+
+                    // Or inserted into an <img> element:
+                    const preview = document.getElementById('avatarPreview')
+                    preview.src = url
+                })
+                .catch(error => {
+                    // TODO: Show error handeling for user
+                    console.error(error)
+                })
+        },
+        previewImage() {
+            if (this.profile.avatar) {
+                const fileReader = new FileReader()
+                fileReader.readAsDataURL(
+                    document.getElementById('avatarInput').files[0]
+                )
+
+                fileReader.onload = function(FREvent) {
+                    document.getElementById('avatarPreview').src =
+                        FREvent.target.result
+                }
+            }
+        },
+        loadInfos() {
+            setTimeout(() => {
+                this.profile.email = this.email ? this.email : ''
+                this.profile.name = this.displayName ? this.displayName : ''
+                this.profile.avatar = this.photoURL ? this.photoURL : ''
+            }, 350)
         },
     },
 }
@@ -131,5 +221,10 @@ export default {
 .modal-body .input-text {
     margin: 8px 16px 8px 8px;
     width: auto;
+}
+#avatarPreview {
+    width: 125px;
+    height: auto;
+    align-self: center;
 }
 </style>

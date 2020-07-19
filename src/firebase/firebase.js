@@ -24,6 +24,7 @@ firebase.initializeApp({
     apiKey: 'AIzaSyAuMHfBC-W31uD7Q2S-Kp92pk7XpXWEeQE',
     authDomain: 'alife-blog.firebaseapp.com',
     projectId: 'alife-api2',
+    storageBucket: 'alife-api2.appspot.com',
 })
 
 export default firebase

@@ -6,7 +6,13 @@
                 <span v-if="optionnal"> (optionnel)</span>
             </label>
         </h4>
-        <input v-model="valueModel" :name="name" :id="name" :type="type" />
+        <input
+            v-model="valueModel"
+            :name="name"
+            :id="name"
+            :type="type"
+            :accept="accept"
+        />
     </div>
 </template>
 
@@ -29,6 +35,10 @@ export default {
         type: {
             type: String,
             default: 'text',
+        },
+        accept: {
+            type: String,
+            default: '*',
         },
     },
     computed: {

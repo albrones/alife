@@ -8,6 +8,7 @@ export default new Vuex.Store({
         user: {
             email: '',
             displayName: '',
+            photoUrl: '',
         },
     },
     mutations: {
@@ -18,6 +19,7 @@ export default new Vuex.Store({
             state.user = {
                 email: '',
                 displayName: '',
+                photoUrl: '',
             }
         },
     },

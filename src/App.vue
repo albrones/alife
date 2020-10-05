@@ -31,6 +31,7 @@
                         <label for="theme-switch">
                             <span v-if="darkMode === true">
                                 <img
+                                    class="theme-switch-icon-light"
                                     alt="logo"
                                     src="./assets/sun.png"
                                     width="40"
@@ -38,6 +39,7 @@
                             </span>
                             <span v-else>
                                 <img
+                                    class="theme-switch-icon-dark"
                                     alt="logo"
                                     src="./assets/moon.png"
                                     width="40"
@@ -147,6 +149,15 @@ export default {
     margin: 0 auto;
     align-items: center;
 }
+
+.theme-switch-icon-light {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.theme-switch-icon-dark {
+    filter: none;
+}
+
 @media only screen and (max-width: 1024px) {
     /* For mobile phones: */
     .content {

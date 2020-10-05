@@ -13,6 +13,7 @@
         <div>
             <div>
                 <div>
+                    <!-- TODO: Sticky ?  -->
                     <div id="nav" v-if="this.$router.currentRoute.path !== '/'">
                         <!-- <router-link to="/about">About</router-link> | -->
                         <router-link to="/recettes">Recettes</router-link> |
@@ -50,7 +51,6 @@
                 </div>
                 <div class="dynamic-subtitle">
                     <!-- content -->
-                    <!-- TODO: Sticky ?  -->
                     <router-view class="content" />
                 </div>
             </div>
@@ -79,6 +79,14 @@ export default {
         },
     },
     mounted() {
+        //Init firebase
+        const firebaseApp = document.createElement('script')
+        firebaseApp.setAttribute('src', '/__/firebase/7.13.2/firebase-app.js"')
+        const firebase = document.createElement('script')
+        firebase.setAttribute('src', '/__/firebase/init.js')
+        document.head.appendChild(firebaseApp)
+        document.head.appendChild(firebase)
+        //Init Darkmode
         // set 'app-background' class to body
         const bodyElement = document.body
         bodyElement.classList.add('app-background')
@@ -94,13 +102,6 @@ export default {
             htmlElement.setAttribute('theme', 'light')
             this.darkMode = false
         }
-
-        const firebaseApp = document.createElement('script')
-        firebaseApp.setAttribute('src', '/__/firebase/7.13.2/firebase-app.js"')
-        const firebase = document.createElement('script')
-        firebase.setAttribute('src', '/__/firebase/init.js')
-        document.head.appendChild(firebaseApp)
-        document.head.appendChild(firebase)
         return true
     },
     watch: {

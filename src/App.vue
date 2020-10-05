@@ -80,12 +80,19 @@ export default {
     },
     mounted() {
         //Init firebase
-        const firebaseApp = document.createElement('script')
-        firebaseApp.setAttribute('src', '/__/firebase/7.13.2/firebase-app.js"')
-        const firebase = document.createElement('script')
-        firebase.setAttribute('src', '/__/firebase/init.js')
-        document.head.appendChild(firebaseApp)
-        document.head.appendChild(firebase)
+        ;() => {
+            const firebaseApp = document.createElement('script')
+            firebaseApp.setAttribute(
+                'src',
+                '/__/firebase/7.13.2/firebase-app.js"'
+            )
+            const firebase = document.createElement('script')
+            firebase.setAttribute('src', '/__/firebase/init.js')
+            document.head.appendChild(firebaseApp)
+            document.head.appendChild(firebase)
+            return true
+        }
+
         //Init Darkmode
         // set 'app-background' class to body
         const bodyElement = document.body
@@ -102,7 +109,6 @@ export default {
             htmlElement.setAttribute('theme', 'light')
             this.darkMode = false
         }
-        return true
     },
     watch: {
         darkMode() {

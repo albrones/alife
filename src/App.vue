@@ -155,12 +155,8 @@ export default {
     align-items: center;
 }
 
-.theme-switch-icon-light {
+[theme='dark'] .theme-switch-icon-light {
     filter: invert(1) hue-rotate(180deg);
-}
-
-.theme-switch-icon-dark {
-    filter: none;
 }
 
 @media only screen and (max-width: 1024px) {

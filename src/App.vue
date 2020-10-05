@@ -89,11 +89,9 @@ export default {
 
         if (theme === 'dark') {
             htmlElement.setAttribute('theme', 'dark')
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.darkMode = true
         } else {
             htmlElement.setAttribute('theme', 'light')
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.darkMode = false
         }
 

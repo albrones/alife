@@ -11,8 +11,15 @@
                     <Register />
                 </ButtonRouter>
                 <!-- {{ userName }} -->
-                <ButtonRouter path="/profile" v-if="isLogged">
+                <ButtonRouter path="/profile" v-if="isLogged && !onProfilePage">
                     <Profile />
+                </ButtonRouter>
+                <ButtonRouter
+                    path=""
+                    @click.native="logout()"
+                    v-if="isLogged && onProfilePage"
+                >
+                    <Logout />
                 </ButtonRouter>
             </div>
         </div>
@@ -33,6 +40,7 @@ import firebase from '@/firebase/firebase'
 import Logo from '@/components/ui/png/Logo'
 import Register from '@/components/ui/png/Register'
 import Profile from '@/components/ui/png/Profile'
+import Logout from '@/components/ui/png/Logout'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 
 export default {
@@ -41,6 +49,7 @@ export default {
         Register,
         Profile,
         ButtonRouter,
+        Logout,
     },
     data() {
         return {
@@ -54,6 +63,9 @@ export default {
         },
         onAuthPage() {
             return this.$route.path === '/auth'
+        },
+        onProfilePage() {
+            return this.$route.path === '/profile'
         },
         isLogged: {
             get() {
@@ -100,6 +112,16 @@ export default {
                     this.isLogged = false
                 }
             })
+        },
+        logout() {
+            firebase
+                .auth()
+                .signOut()
+                .then(this.$store.commit('removeUserInfo'))
+                .then(() => {
+                    console.info('Logged out')
+                    this.$router.push({ path: '/' })
+                })
         },
     },
 }

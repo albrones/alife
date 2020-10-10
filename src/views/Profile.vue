@@ -8,11 +8,8 @@
             </div>
             <div class="profile">
                 <div class="actions">
-                    <Button type="attention" @click.native="changePassword()">
+                    <Button type="validate" @click.native="changePassword()">
                         Changer MDP
-                    </Button>
-                    <Button type="warning" @click.native="logout()">
-                        Se déconnecter
                     </Button>
                 </div>
                 <!-- <InputText name="email" type="email" v-model="profile.email">
@@ -93,12 +90,15 @@ export default {
                 ? this.newAvatar
                 : this.$store.state.user.photoURL
         },
+        baseEmail() {
+            return this.email.split('@')[0]
+        },
     },
     methods: {
         updateUserInfo() {
             const user = firebase.auth().currentUser
             const userData = {
-                // email: this.profile.email,
+                email: this.profile.email,
                 displayName: this.profile.name,
                 photoURL: this.profile.avatar,
             }
@@ -143,7 +143,7 @@ export default {
         uploadImage() {
             const storageRef = storage.ref()
             storageRef
-                .child('avatars/logo-alife.png')
+                .child('avatars/' + this.baseEmail + '.png')
                 .getDownloadURL()
                 .then(url => {
                     // `url` is the download URL for 'images/stars.jpg'

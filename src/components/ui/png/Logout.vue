@@ -1,5 +1,5 @@
 <template>
-    <img src="../../../assets/login.png" alt="logout" />
+    <img src="../../../assets/logout.png" alt="logout" />
 </template>
 
 <script>
@@ -8,10 +8,9 @@ export default {}
 
 <style lang="scss" scoped>
 img {
-    width: 38px;
-    height: 38px;
-    margin-left: -2px;
-    margin-top: 1px;
-    transform: rotate(180deg);
+    width: 36px;
+    height: 36px;
+    margin-left: 3px;
+    margin-top: 4px;
 }
 </style>

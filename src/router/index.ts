@@ -7,7 +7,7 @@ import Recettes from '../views/Recettes.vue'
 import Pomodoro from '../views/Pomodoro.vue'
 import About from '../views/About.vue'
 import Auth from '../views/Auth.vue'
-import Profile from '../views/Profile.vue'
+// import Profile from '../views/Profile.vue'
 import Recette from '../components/recette/Recette.vue'
 import RecetteForm from '../components/recette/RecetteForm.vue'
 import FilmsForm from '../components/films/FilmsForm.vue'
@@ -27,11 +27,11 @@ const routes = [
         name: 'Auth',
         component: Auth,
     },
-    {
-        path: '/profile',
-        name: 'Profile',
-        component: Profile,
-    },
+    // {
+    //     path: '/profile',
+    //     name: 'Profile',
+    //     component: Profile,
+    // },
     {
         path: '/cinema',
         name: 'Cinema',

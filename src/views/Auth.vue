@@ -112,7 +112,7 @@ export default {
                         .createUserWithEmailAndPassword(email, password)
                         .then(() => {
                             console.info('Registration done & logged in')
-                            this.$router.push({ path: '/profile' })
+                            this.$router.push({ path: '/' /*profile*/ })
                         })
                         .catch(function(error) {
                             // TODO: Show error handeling for user
@@ -136,7 +136,7 @@ export default {
                 .signInWithEmailAndPassword(email, password)
                 .then(() => {
                     console.info('Logged in')
-                    this.$router.push({ path: '/profile' })
+                    this.$router.push({ path: '/' /*profile*/ })
                 })
                 .catch(function(error) {
                     // TODO: Show error handeling for user

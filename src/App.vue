@@ -10,14 +10,14 @@
                 <ButtonRouter path="/auth" v-if="!isLogged && !onAuthPage">
                     <Register />
                 </ButtonRouter>
-                <!-- {{ userName }} -->
-                <ButtonRouter path="/profile" v-if="isLogged && !onProfilePage">
+                <!-- {{ username }} -->
+                <!-- <ButtonRouter path="/profile" v-if="isLogged && !onProfilePage">
                     <Profile />
-                </ButtonRouter>
+                </ButtonRouter> -->
                 <ButtonRouter
                     path=""
                     @click.native="logout()"
-                    v-if="isLogged && onProfilePage"
+                    v-if="isLogged /*&& onProfilePage*/"
                 >
                     <Logout />
                 </ButtonRouter>
@@ -39,7 +39,7 @@
 import firebase from '@/firebase/firebase'
 import Logo from '@/components/ui/png/Logo'
 import Register from '@/components/ui/png/Register'
-import Profile from '@/components/ui/png/Profile'
+// import Profile from '@/components/ui/png/Profile'
 import Logout from '@/components/ui/png/Logout'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 
@@ -47,14 +47,14 @@ export default {
     components: {
         Logo,
         Register,
-        Profile,
+        // Profile,
         ButtonRouter,
         Logout,
     },
     data() {
         return {
             logged: false,
-            userName: '',
+            username: '',
         }
     },
     computed: {
@@ -64,9 +64,9 @@ export default {
         onAuthPage() {
             return this.$route.path === '/auth'
         },
-        onProfilePage() {
-            return this.$route.path === '/profile'
-        },
+        // onProfilePage() {
+        //     return this.$route.path === '/profile'
+        // },
         isLogged: {
             get() {
                 return this.logged
@@ -103,13 +103,16 @@ export default {
                         uid,
                         providerData,
                     }
-                    this.userName = displayName
+                    console.log(userData)
+                    this.username = displayName
                     this.$store.commit('saveUserInfo', userData)
                     this.isLogged = true
+                    console.log('Logged')
                 } else {
                     // User is signed out.
                     this.$store.commit('removeUserInfo')
                     this.isLogged = false
+                    console.log('Need to log')
                 }
             })
         },
@@ -120,7 +123,9 @@ export default {
                 .then(this.$store.commit('removeUserInfo'))
                 .then(() => {
                     console.info('Logged out')
-                    this.$router.push({ path: '/' })
+                    if (!this.onHomepage) {
+                        this.$router.push({ path: '/' })
+                    }
                 })
         },
     },

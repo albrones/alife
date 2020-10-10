@@ -1,14 +1,138 @@
 <template>
     <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
+        <div class="header">
+            <div class="logo" :class="{ 'as-right-button': !onAuthPage }">
+                <!-- TODO: Add logo at left w sticky-->
+                <Logo class="logo-icon" v-if="!onHomepage" />
+                <h1 v-if="onHomepage">ALIFE</h1>
+            </div>
+            <div class="auth">
+                <ButtonRouter path="/auth" v-if="!isLogged && !onAuthPage">
+                    <Register />
+                </ButtonRouter>
+                <!-- {{ username }} -->
+                <!-- <ButtonRouter path="/profile" v-if="isLogged && !onProfilePage">
+                    <Profile />
+                </ButtonRouter> -->
+                <ButtonRouter
+                    path=""
+                    @click.native="logout()"
+                    v-if="isLogged /*&& onProfilePage*/"
+                >
+                    <Logout />
+                </ButtonRouter>
+            </div>
         </div>
-        <router-view />
+        <!-- TODO: Sticky ?  -->
+        <div id="nav" v-if="onHomepage">
+            <!-- <router-link to="/about">About</router-link> | -->
+            <router-link to="/recettes">Recettes</router-link> |
+            <router-link to="/cinema">Cinema</router-link> |
+            <router-link to="/music">Musique</router-link> |
+            <router-link to="/pomodoro">Pomodoro</router-link>
+        </div>
+        <router-view class="content" />
     </div>
 </template>
 
-<style lang="scss">
+<script>
+import firebase from '@/firebase/firebase'
+import Logo from '@/components/ui/png/Logo'
+import Register from '@/components/ui/png/Register'
+// import Profile from '@/components/ui/png/Profile'
+import Logout from '@/components/ui/png/Logout'
+import ButtonRouter from '@/components/ui/ButtonRouter'
+
+export default {
+    components: {
+        Logo,
+        Register,
+        // Profile,
+        ButtonRouter,
+        Logout,
+    },
+    data() {
+        return {
+            logged: false,
+            username: '',
+        }
+    },
+    computed: {
+        onHomepage() {
+            return this.$route.path === '/'
+        },
+        onAuthPage() {
+            return this.$route.path === '/auth'
+        },
+        // onProfilePage() {
+        //     return this.$route.path === '/profile'
+        // },
+        isLogged: {
+            get() {
+                return this.logged
+            },
+            set(newStatus) {
+                this.logged = newStatus
+            },
+        },
+    },
+    mounted() {
+        this.checkUserConnected()
+    },
+    methods: {
+        checkUserConnected() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    // User is signed in.
+                    const {
+                        displayName,
+                        email,
+                        emailVerified,
+                        photoURL,
+                        isAnonymous,
+                        uid,
+                        providerData,
+                    } = user
+
+                    const userData = {
+                        displayName,
+                        email,
+                        emailVerified,
+                        photoURL,
+                        isAnonymous,
+                        uid,
+                        providerData,
+                    }
+                    console.log(userData)
+                    this.username = displayName
+                    this.$store.commit('saveUserInfo', userData)
+                    this.isLogged = true
+                    console.log('Logged')
+                } else {
+                    // User is signed out.
+                    this.$store.commit('removeUserInfo')
+                    this.isLogged = false
+                    console.log('Need to log')
+                }
+            })
+        },
+        logout() {
+            firebase
+                .auth()
+                .signOut()
+                .then(this.$store.commit('removeUserInfo'))
+                .then(() => {
+                    console.info('Logged out')
+                    if (!this.onHomepage) {
+                        this.$router.push({ path: '/' })
+                    }
+                })
+        },
+    },
+}
+</script>
+
+<style lang="scss" scoped>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -27,6 +151,37 @@
         &.router-link-exact-active {
             color: #42b983;
         }
+    }
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    align-items: center;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    flex-grow: 1;
+}
+.as-right-button {
+    margin-left: 50px;
+}
+.auth {
+    padding: 10px 0 16px 0;
+    flex-grow: 0;
+}
+.logo-icon {
+    display: block;
+}
+@media only screen and (max-width: 1024px) {
+    /* For mobile phones: */
+    .content {
+        width: 100%;
+        // margin: 0 8px;
     }
 }
 </style>

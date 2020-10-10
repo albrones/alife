@@ -11,13 +11,13 @@
                     <Register />
                 </ButtonRouter>
                 <!-- {{ username }} -->
-                <!-- <ButtonRouter path="/profile" v-if="isLogged && !onProfilePage">
+                <ButtonRouter path="/profile" v-if="isLogged && !onProfilePage">
                     <Profile />
-                </ButtonRouter> -->
+                </ButtonRouter>
                 <ButtonRouter
                     path=""
                     @click.native="logout()"
-                    v-if="isLogged /*&& onProfilePage*/"
+                    v-if="isLogged && onProfilePage"
                 >
                     <Logout />
                 </ButtonRouter>
@@ -39,7 +39,7 @@
 import firebase from '@/firebase/firebase'
 import Logo from '@/components/ui/png/Logo'
 import Register from '@/components/ui/png/Register'
-// import Profile from '@/components/ui/png/Profile'
+import Profile from '@/components/ui/png/Profile'
 import Logout from '@/components/ui/png/Logout'
 import ButtonRouter from '@/components/ui/ButtonRouter'
 
@@ -47,13 +47,13 @@ export default {
     components: {
         Logo,
         Register,
-        // Profile,
+        Profile,
         ButtonRouter,
         Logout,
     },
     data() {
         return {
-            logged: false,
+            // logged: false,
             username: '',
         }
     },
@@ -64,16 +64,11 @@ export default {
         onAuthPage() {
             return this.$route.path === '/auth'
         },
-        // onProfilePage() {
-        //     return this.$route.path === '/profile'
-        // },
-        isLogged: {
-            get() {
-                return this.logged
-            },
-            set(newStatus) {
-                this.logged = newStatus
-            },
+        onProfilePage() {
+            return this.$route.path === '/profile'
+        },
+        isLogged() {
+            return this.$store.state.isLogged
         },
     },
     mounted() {
@@ -106,12 +101,12 @@ export default {
                     console.log(userData)
                     this.username = displayName
                     this.$store.commit('saveUserInfo', userData)
-                    this.isLogged = true
+                    this.$store.commit('isLogged', true)
                     console.log('Logged')
                 } else {
                     // User is signed out.
                     this.$store.commit('removeUserInfo')
-                    this.isLogged = false
+                    this.$store.commit('isLogged', true)
                     console.log('Need to log')
                 }
             })

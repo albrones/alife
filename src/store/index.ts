@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        isLogged: false,
         user: {
             email: '',
             displayName: '',
@@ -21,6 +22,9 @@ export default new Vuex.Store({
                 displayName: '',
                 photoUrl: '',
             }
+        },
+        isLogged(state, value) {
+            state.isLogged = value
         },
     },
     actions: {},

@@ -27,7 +27,7 @@
                     id="avatar"
                     :onchange="previewImage()"
                 /> -->
-                <!-- <InputText
+                <InputText
                     name="avatarInput"
                     type="file"
                     v-model="profile.avatar"
@@ -38,7 +38,7 @@
                 </InputText>
                 <div>
                     <img :src="profile.avatar" alt="" id="avatarPreview" />
-                </div> -->
+                </div>
                 <Button @click.native="updateUserInfo()">
                     Enregistrer
                 </Button>
@@ -66,17 +66,15 @@ export default {
                 confirm: '',
                 email: '',
                 name: '',
-                // avatar: '',
+                avatar: '',
             },
-            // newAvatar: '',
+            newAvatar: '',
             activated: false,
         }
     },
     mounted() {
-        // this.$nextTick(() => {
         this.loadInfos()
-        // this.uploadImage()
-        // })
+        this.uploadImage()
     },
     computed: {
         email() {
@@ -85,11 +83,11 @@ export default {
         displayName() {
             return this.$store.state.user.displayName
         },
-        // photoURL() {
-        //     return this.newAvatar
-        //         ? this.newAvatar
-        //         : this.$store.state.user.photoURL
-        // },
+        photoURL() {
+            return this.newAvatar
+                ? this.newAvatar
+                : this.$store.state.user.photoURL
+        },
         baseEmail() {
             return this.email.split('@')[0]
         },
@@ -100,6 +98,7 @@ export default {
     watch: {
         isLogged() {
             this.loadInfos()
+            this.uploadImage()
         },
     },
     methods: {
@@ -174,24 +173,23 @@ export default {
                     console.error(error)
                 })
         },
-        // previewImage() {
-        //     if (this.profile.avatar) {
-        //         const fileReader = new FileReader()
-        //         fileReader.readAsDataURL(
-        //             document.getElementById('avatarInput').files[0]
-        //         )
+        previewImage() {
+            if (this.profile.avatar) {
+                const fileReader = new FileReader()
+                fileReader.readAsDataURL(
+                    document.getElementById('avatarInput').files[0]
+                )
 
-        //         fileReader.onload = function(FREvent) {
-        //             document.getElementById('avatarPreview').src =
-        //                 FREvent.target.result
-        //         }
-        //     }
-        // },
+                fileReader.onload = function(FREvent) {
+                    document.getElementById('avatarPreview').src =
+                        FREvent.target.result
+                }
+            }
+        },
         loadInfos() {
-            console.log('loadInfos')
             this.profile.email = this.email ? this.email : ''
             this.profile.name = this.displayName ? this.displayName : ''
-            // this.profile.avatar = this.photoURL ? this.photoURL : ''
+            this.profile.avatar = this.photoURL ? this.photoURL : ''
         },
     },
 }

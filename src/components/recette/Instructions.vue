@@ -1,37 +1,37 @@
 <template>
-    <div v-if="data.length > 0">
-        <h3>Instuctions:</h3>
-        <div class="instructions">
-            <p v-for="(instruction, index) in data" :key="index">
-                <span>
-                    <strong>{{ index + 1 }}) </strong>
-                </span>
-                {{ instruction }}
-            </p>
-        </div>
-    </div>
+	<div v-if="data.length > 0">
+		<h3>Instuctions:</h3>
+		<div class="instructions">
+			<p v-for="(instruction, index) in data" :key="index">
+				<span>
+					<strong>{{ index + 1 }}) </strong>
+				</span>
+				{{ instruction }}
+			</p>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
-    name: 'Instructions',
-    props: {
-        data: {
-            type: Array,
-            required: true,
-        },
-    },
-}
+	name: "Instructions",
+	props: {
+		data: {
+			type: Array,
+			required: true,
+		},
+	},
+};
 </script>
 
 <style scoped>
 .instructions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 p {
-    text-align: initial;
-    margin: 8px 16px;
+	text-align: initial;
+	margin: 8px 16px;
 }
 </style>

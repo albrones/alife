@@ -1,15 +1,15 @@
 <template>
-    <img src="../../../assets/edit.png" alt="edit" />
+	<img src="../../../assets/edit.png" alt="edit" />
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style lang="scss" scoped>
 img {
-    width: 32px;
-    height: 32px;
-    margin: 1px;
+	width: 32px;
+	height: 32px;
+	margin: 1px;
 }
 </style>

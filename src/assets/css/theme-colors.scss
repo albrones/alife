@@ -1,16 +1,16 @@
 :root {
-    --app-background-color: #ffffff;
-    --dynamic-title-color: #2c3e50;
-    --dynamic-subtitle-color: #42b983;
+  --app-background-color: #ffffff;
+  --dynamic-title-color: #2c3e50;
+  --dynamic-subtitle-color: #42b983;
 }
 
-[theme='dark'] {
-    // --app-background-color: #091a28;
-    // --dynamic-title-color: #ffffff;
-    // --dynamic-subtitle-color: cyan;
-    filter: invert(1) hue-rotate(180deg);
+[theme="dark"] {
+  --app-background-color: #091a28;
+  //   --dynamic-title-color: #ffffff;
+  //   --dynamic-subtitle-color: cyan;
+  filter: invert(1) hue-rotate(180deg);
 }
 
 html {
-    transition: color 300ms, background-color 300ms;
+  transition: color 300ms, background-color 300ms;
 }
